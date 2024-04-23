@@ -1,0 +1,161 @@
+Lib_User
+	user_id (PK),
+	f_name,
+	l_name,
+	email,
+	password,
+	created_at,
+	admin_id (FK)
+
+Lib_Member
+	user_id (PK) (Lib_User.user_id FK),
+	role, // Student/Lecturer
+	total_book_borrowed, // Set constraint 5 for students and 10 for lecturers
+	total_fine_paid,
+	Major.major_id program_code (FK)
+	
+Lib_Admin
+	user_id (PK) (Lib_User.user_id FK)
+
+Lib_Librarian
+	user_id (PK) (Lib_User.user_id FK)
+
+Major
+	major_id (PK), // E.g: BP162
+	school, // E.g: SSET, TBS, SCD
+	name, 
+	
+Course
+	course_id (PK),
+	name,
+	
+Category
+	category_id (PK),
+	name
+
+Item
+	item_id (PK),
+	manager (Lib_Librarian.user_id FK),
+	
+	
+Room
+	room_id (PK)(Item.item_id FK),
+	building_no,
+	room_no,
+	capacity,
+	status
+	
+	
+Book
+	book_id (PK)(Item.item_id FK),
+	title,
+	num_of_copies,
+	description,
+	ratings,
+	category,
+	language
+	
+Ebooks
+	book_id (PK) (Book.book_id FK),
+	isbn,
+	format, // PDF, EPub
+	url,
+	file_size
+	
+Hard_Copies
+	[Composite primary key book_id and copy_id]
+	book_id (Book.book_id FK),
+	copy_id,
+	status, // Available, Unavailable
+	edition,
+	year_published,
+	location (Location.location_id FK)
+		
+Author
+	author_id (PK),
+	f_name,
+	l_name,
+	
+Location
+	location_id,
+	campus, // SGS, HN
+	floor,
+	shelf_no,
+	line_no
+	
+Review
+	review_id (PK),
+	rating, // 1-5
+	comment,
+	timestamp,
+	reviewer (Member.user_id FK),
+	book (Book.book_id FK)
+	
+	
+Fine 
+	fine_id (PK),
+	amount,
+	reason,
+	status,
+	incurred_date,
+	due_date,
+	paid_date,
+	payer (Member.user_id FK),
+	item_id (Item.item_id FK)
+	
+Requests
+	request_id (PK),
+	type,
+	created_at,
+	message,
+	status, // Pending, Ongoing, Resolved
+	sender (Member.user_id FK),
+	receiver (Librarian.user_id FK)
+	
+Member_Course
+	[composite primary key member_id and course_id]
+	member_id (Member.user_id FK),
+	course_code(Course.course_id FK)
+	
+Member_Ebooks
+	[composite primary key member_id and ebook_id]
+	member_id (Member.user_id FK),
+	ebook_id (Ebooks.book_id FK)
+	
+Member_Room
+	booking_id (PK),
+	member_id (Member.user_id FK),
+	room_id (Room.room_id FK),
+	reservation_date,
+	start_date,
+	end_date
+	
+Member_HardCopy
+	borrow_id (PK),
+	member (Member.user_id FK),
+	book (Hard_Copies.book_id FK),
+	issue_date,
+	return_date,
+	due_date,
+	checkin_condition,
+	checkout_condition,
+	borrower (Member.user_id FK), // NULL when available
+	
+	
+Book_Author
+	[composite primary key book_id and author_id]
+	book_id (Book.book_id FK),
+	author_id (Author.author_id FK)
+	
+	
+Book_Course 
+	[composite primary key book_id and course_id]
+	book_id (Book.book_id FK),
+	course_id (Course.course_id FK)
+	
+	
+Book_Category
+	[composite primary key book_id and category_id]
+	book_id (Book.book_id FK),
+	category_id (Category.category_id FK)
+	
