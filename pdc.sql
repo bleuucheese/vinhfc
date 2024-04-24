@@ -1,3 +1,27 @@
+use vinhfc;
+CREATE TABLE Major (
+    major_id VARCHAR(15) PRIMARY KEY,
+    school ENUM('SSET', 'TBS', 'SCD', 'SEUP'),
+    name VARCHAR(100)
+);
+
+CREATE TABLE Course (
+    course_id VARCHAR(15) PRIMARY KEY,
+    name VARCHAR(100)
+);
+
+CREATE TABLE Category (
+    category_id VARCHAR(15) PRIMARY KEY,
+    name VARCHAR(100)
+);
+
+CREATE TABLE Location (
+    location_id VARCHAR(15) PRIMARY KEY,
+    campus VARCHAR(50),
+    floor INT,
+    shelf_no VARCHAR(50),
+    line_no INT
+);
 CREATE TABLE Lib_User (
     user_id VARCHAR(15) PRIMARY KEY,
     f_name NVARCHAR(100),
@@ -23,7 +47,6 @@ CREATE TABLE Lib_Member (
     )
 );
 
-
 CREATE TABLE Lib_Admin (
     user_id VARCHAR(15) PRIMARY KEY,
     FOREIGN KEY (user_id) REFERENCES Lib_User(user_id)
@@ -32,22 +55,6 @@ CREATE TABLE Lib_Admin (
 CREATE TABLE Lib_Librarian (
     user_id VARCHAR(15) PRIMARY KEY,
     FOREIGN KEY (user_id) REFERENCES Lib_User(user_id)
-);
-
-CREATE TABLE Major (
-    major_id VARCHAR(15) PRIMARY KEY,
-    school ENUM('SSET', 'TBS', 'SCD', 'SEUP'),
-    name VARCHAR(100)
-);
-
-CREATE TABLE Course (
-    course_id VARCHAR(15) PRIMARY KEY,
-    name VARCHAR(100)
-);
-
-CREATE TABLE Category (
-    category_id VARCHAR(15) PRIMARY KEY,
-    name VARCHAR(100)
 );
 
 CREATE TABLE Item (
@@ -104,14 +111,6 @@ CREATE TABLE Author (
     l_name NVARCHAR(100)
 );
 
-CREATE TABLE Location (
-    location_id VARCHAR(15) PRIMARY KEY,
-    campus VARCHAR(50),
-    floor INT,
-    shelf_no VARCHAR(50),
-    line_no INT
-);
-
 CREATE TABLE Review (
     review_id VARCHAR(15) PRIMARY KEY,
     rating INT CHECK (rating BETWEEN 1 AND 5),
@@ -134,9 +133,7 @@ CREATE TABLE Fine (
     payer VARCHAR(15),
     item_id VARCHAR(15),
     FOREIGN KEY (payer) REFERENCES Lib_Member(user_id),
-    FOREIGN KEY (item_id) REFERENCES Item(item_id),
-    FOREIGN KEY (item_id) REFERENCES Hard_Copies(copy_id),
-    FOREIGN KEY (item_id) REFERENCES Room(room_id)
+    FOREIGN KEY (item_id) REFERENCES Item(item_id)
 );
 
 CREATE TABLE Requests (
@@ -186,13 +183,14 @@ CREATE TABLE Member_HardCopy (
     issue_date DATE,
     return_date DATE,
     due_date DATE,
-    checkin_condition VARCHAR(255), // New, Damaged
-    checkout_condition VARCHAR(255), // New, Damaged
+    checkin_condition VARCHAR(255) CHECK (checkin_condition IN ('New', 'Damaged')),  -- Only allows 'New' or 'Damaged'
+    checkout_condition VARCHAR(255) CHECK (checkout_condition IN ('New', 'Damaged')),  -- Only allows 'New' or 'Damaged'
     borrower VARCHAR(15),
     FOREIGN KEY (member) REFERENCES Lib_Member(user_id),
-    FOREIGN KEY (book,bcopy) REFERENCES Hard_Copies(book_id, copy_id),
+    FOREIGN KEY (book, bcopy) REFERENCES Hard_Copies(book_id, copy_id),
     FOREIGN KEY (borrower) REFERENCES Lib_Member(user_id)
 );
+
 
 CREATE TABLE Book_Author (
     book_id VARCHAR(15),
@@ -217,3 +215,7 @@ CREATE TABLE Book_Category (
     FOREIGN KEY (book_id) REFERENCES Book(book_id),
     FOREIGN KEY (category_id) REFERENCES Category(category_id)
 );
+
+-- Test data
+SELECT * from Course;
+SELECT * FROM Major;
