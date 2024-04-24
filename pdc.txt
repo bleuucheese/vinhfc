@@ -12,7 +12,8 @@ Lib_Member
 	role, // Student/Lecturer
 	total_book_borrowed, // Set constraint 5 for students and 10 for lecturers
 	total_fine_paid,
-	Major.major_id program_code (FK)
+	program_code (Major.major_id FK),
+	status // active, alumni
 	
 Lib_Admin
 	user_id (PK) (Lib_User.user_id FK)
@@ -56,7 +57,7 @@ Book
 	language
 	
 Ebooks
-	book_id (PK) (Book.book_id FK),
+	ebook_id (PK) (Book.book_id FK),
 	isbn,
 	format, // PDF, EPub
 	url,
@@ -105,8 +106,9 @@ Fine
 	
 Requests
 	request_id (PK),
-	type,
+	type, // Consultation
 	created_at,
+	resolved_at,
 	message,
 	status, // Pending, Ongoing, Resolved
 	sender (Member.user_id FK),
@@ -158,4 +160,3 @@ Book_Category
 	[composite primary key book_id and category_id]
 	book_id (Book.book_id FK),
 	category_id (Category.category_id FK)
-	
