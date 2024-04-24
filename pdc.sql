@@ -3,7 +3,7 @@ CREATE TABLE Lib_User (
     f_name NVARCHAR(100),
     l_name NVARCHAR(100),
     email VARCHAR(100) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL,
+    pwd VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     admin_id VARCHAR(15),
     FOREIGN KEY (admin_id) REFERENCES Lib_User(user_id)
@@ -186,8 +186,8 @@ CREATE TABLE Member_HardCopy (
     issue_date DATE,
     return_date DATE,
     due_date DATE,
-    checkin_condition VARCHAR(255),
-    checkout_condition VARCHAR(255),
+    checkin_condition VARCHAR(255), // New, Damaged
+    checkout_condition VARCHAR(255), // New, Damaged
     borrower VARCHAR(15),
     FOREIGN KEY (member) REFERENCES Lib_Member(user_id),
     FOREIGN KEY (book,bcopy) REFERENCES Hard_Copies(book_id, copy_id),
