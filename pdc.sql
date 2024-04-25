@@ -125,9 +125,10 @@ CREATE TABLE Fine (
     due_date DATE,
     paid_date DATE,
     payer VARCHAR(15),
-    item_id VARCHAR(15),
+    book_id VARCHAR(15),
+    copy_id VARCHAR(15),
     FOREIGN KEY (payer) REFERENCES Lib_Member(user_id),
-    FOREIGN KEY (item_id) REFERENCES Item(item_id)
+    FOREIGN KEY (book_id, copy_id) REFERENCES Hard_Copies(book_id, copy_id)
 );
 
 CREATE TABLE Requests (
