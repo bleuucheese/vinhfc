@@ -214,6 +214,14 @@ CREATE TABLE Book_Category (
     FOREIGN KEY (category_id) REFERENCES Category(category_id)
 );
 
+CREATE TABLE Book_Major (
+    book_id VARCHAR(15),
+    major_id VARCHAR(15),
+    PRIMARY KEY (book_id, major_id),
+    FOREIGN KEY (book_id) REFERENCES Book(book_id),
+    FOREIGN KEY (major_id) REFERENCES Major(major_id)
+);
+
 -- Test data
 SELECT * from Course;
 SELECT * FROM Major;
