@@ -30,7 +30,7 @@ CREATE TABLE Lib_User (
     pwd VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     admin_id VARCHAR(15),
-    FOREIGN KEY (admin_id) REFERENCES Lib_User(user_id)
+    FOREIGN KEY (admin_id) REFERENCES Lib_Admin(user_id)
 );
 
 CREATE TABLE Lib_Member (
