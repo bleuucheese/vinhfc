@@ -56,9 +56,7 @@ CREATE TABLE Lib_Librarian (
 );
 
 CREATE TABLE Item (
-    item_id VARCHAR(15) PRIMARY KEY,
-    manager VARCHAR(15),
-    FOREIGN KEY (manager) REFERENCES Lib_Librarian(user_id)
+    item_id VARCHAR(15) PRIMARY KEY
 );
 
 CREATE TABLE Room (
