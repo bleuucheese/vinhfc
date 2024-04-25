@@ -28,9 +28,7 @@ CREATE TABLE Lib_User (
     l_name NVARCHAR(100),
     email VARCHAR(100) UNIQUE NOT NULL,
     pwd VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    admin_id VARCHAR(15),
-    FOREIGN KEY (admin_id) REFERENCES Lib_Admin(user_id)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE Lib_Member (
