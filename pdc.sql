@@ -74,10 +74,8 @@ CREATE TABLE Book (
     num_of_copies INT,
     description TEXT,
     ratings FLOAT,
-    category VARCHAR(15),
     language VARCHAR(50),
-    FOREIGN KEY (book_id) REFERENCES Item(item_id),
-    FOREIGN KEY (category) REFERENCES Category(category_id)
+    FOREIGN KEY (book_id) REFERENCES Item(item_id)
 );
 
 CREATE TABLE Ebooks (
