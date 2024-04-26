@@ -1,7 +1,7 @@
 use vinhfc;
 CREATE TABLE Major (
     major_id VARCHAR(15) PRIMARY KEY,
-    school ENUM('SSET', 'TBS', 'SCD', 'SEUP'),
+    school VARCHAR(50) CHECK (school IN ('SSET', 'TBS', 'SCD', 'SEUP')),
     name VARCHAR(100)
 );
 
@@ -167,7 +167,8 @@ CREATE TABLE Member_Room (
     start_date TIMESTAMP,
     end_date TIMESTAMP,
     FOREIGN KEY (member_id) REFERENCES Lib_Member(user_id),
-    FOREIGN KEY (room_id) REFERENCES Room(room_id)
+    FOREIGN KEY (room_id) REFERENCES Room(room_id),
+    CHECK ((end_date - start_date) <= INTERVAL '2' HOUR)  -- Ensures booking duration does not exceed 2 hours
 );
 
 CREATE TABLE Member_HardCopy (
