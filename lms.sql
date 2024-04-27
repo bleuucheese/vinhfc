@@ -25,6 +25,7 @@ CREATE TABLE Location (
 );
 CREATE TABLE Lib_User (
     user_id VARCHAR(15) PRIMARY KEY,
+    username VARCHAR(100) CONSTRAINT username_unique UNIQUE NOT NULL,
     f_name VARCHAR2(100),
     l_name VARCHAR2(100),
     email VARCHAR(100) CONSTRAINT email_unique UNIQUE NOT NULL,
@@ -179,14 +180,12 @@ CREATE TABLE Member_HardCopy (
     book VARCHAR(15),
     bcopy VARCHAR(15),
     issue_date DATE,
-    return_date DATE,
     due_date DATE,
+    return_date DATE,
     checkin_condition VARCHAR(255) CHECK (checkin_condition IN ('New', 'Damaged')),  -- Only allows 'New' or 'Damaged'
     checkout_condition VARCHAR(255) CHECK (checkout_condition IN ('New', 'Damaged')),  -- Only allows 'New' or 'Damaged'
-    borrower VARCHAR(15),
     FOREIGN KEY (member) REFERENCES Lib_Member(user_id),
-    FOREIGN KEY (book, bcopy) REFERENCES Hard_Copies(book_id, copy_id),
-    FOREIGN KEY (borrower) REFERENCES Lib_Member(user_id)
+    FOREIGN KEY (book, bcopy) REFERENCES Hard_Copies(book_id, copy_id)
 );
 
 
