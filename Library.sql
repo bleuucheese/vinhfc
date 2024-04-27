@@ -1,36 +1,35 @@
 -- Insert Lib_User
-INSERT INTO Lib_User (user_id, f_name, l_name, email, password, created_at) VALUES
-('U001', 'Anh', 'Lam', 'lamtramanh@gmail.com', 'practical'),
-('U002', 'Bao', 'Ho', 'honguyenbao@gmail.com', 'database'),
-('U003', 'Uyen', 'Ngo', 'nnphuonguyen@gmail.com', 'concepts'),
-('U004', 'Duc', 'Pham', 'phamvietduc@gmail.com', 'pdc'),
-('U005', 'Evelyn', 'Vo', 'voeva@gmail.com', 'sql'),
-('U006', 'Joshua', 'Hansen', 'xthejosh@gmail.com', 'oracle'),
-('U007', 'Giang', 'Dinh', 'dinhquynhgiang@gmail.com', 'apex'),
-('U008', 'Hai', 'Luong', 'luongminhhai@gmail.com', 'library'),
-('U009', 'Vy', 'Kieu', 'kieukhanhvy@gmail.com', 'system'),
-('U010', 'Iris', 'Nguyen', 'ngmaihuong@gmail.com', 'erd'),
-('L001', 'Andrew', 'Baltutis', 'litvandrius@gmail.com', 'relationalschema'),
-('L002', 'Nguyen', 'Bao', 'nguyenbao@gmail.com', 'entity'),
-('L003', 'Tran', 'Chi', 'tranchi@gmail.com', 'relationship'),
-('A001', 'Ha', 'Trinh', 'hatrinh@gmail.com', 'schema'),
-('A002', 'Bach', 'Nguyen', 'voeva@gmail.com', 'hierachy'),
-('A003', 'Vinh', 'Feng', 'buifeng@gmail.com', 'HD');
-
+INSERT INTO Lib_User (user_id, username, f_name, l_name, email, pwd) VALUES
+('U001', 'anh.lam', 'Anh', 'Lam', 'lamtramanh@gmail.com', 'practical'),
+('U002', 'bao.ho', 'Bao', 'Ho', 'honguyenbao@gmail.com', 'database'),
+('U003', 'johnathan.crellin', 'Johnathan', 'Crellin', 'johncrel@gmail.com', 'concepts'),
+('U004', 'duc.pham', 'Duc', 'Pham', 'phamvietduc@gmail.com', 'pdc'),
+('U005', 'evelyn.vo', 'Evelyn', 'Vo', 'voeva@gmail.com', 'sql'),
+('U006', 'joshua.hansen', 'Joshua', 'Hansen', 'xthejosh@gmail.com', 'oracle'),
+('U007', 'giang.dinh', 'Giang', 'Dinh', 'dinhquynhgiang@gmail.com', 'apex'),
+('U008', 'khai.luong', 'Khai', 'Luong', 'luongminhkhai@gmail.com', 'library'),
+('U009', 'vy.kieu', 'Vy', 'Kieu', 'kieukhanhvy@gmail.com', 'system'),
+('U010', 'iris.nguyen', 'Iris', 'Nguyen', 'ngmaihuong@gmail.com', 'erd'),
+('L001', 'andrew.tran', 'Andrew', 'Tran', 'litvandrius@gmail.com', 'relationalschema'),
+('L002', 'chi.dang', 'Chi', 'Dang', 'dangtungchi@gmail.com', 'entity'),
+('L003', 'thu.le', 'Thu', 'Le', 'lehathu@gmail.com', 'relation'),
+('A001', 'ha.trinh', 'Ha', 'Trinh', 'fuhgetmenut@gmail.com', 'schema'),
+('A002', 'bach.nguyen', 'Bach', 'Nguyen', 'bachesng@gmail.com', 'hierachy'),
+('A003', 'vinh.truong', 'Vinh', 'Truong', 'trngxuanvinh@gmail.com', 'HD');
 
 
 -- Insert Lib_Member
 INSERT INTO Lib_Member (user_id, role, total_book_borrowed, total_fine_paid, program_code) VALUES
-('U001', 'Student', 5, 0.00, 'BP343'),
-('U002', 'Student', 3, 0.00, 'BP214'),
-('U003', 'Lecturer', 0, 0.00, NULL),
-('U004', 'Student', 2, 0.00, 'BP312'),
-('U005', 'Student', 4, 0.00, 'BP222'),
+('U001', 'Student', 0, 0.00, 'BP343'),
+('U002', 'Student', 0, 0.00, 'BP214'),
+('U003', 'Lecturer', 0, 25.00, NULL),
+('U004', 'Student', 0, 25.00, 'BP312'),
+('U005', 'Student', 0, 0.00, 'BP222'),
 ('U006', 'Lecturer', 0, 0.00, NULL),
-('U007', 'Student', 6, 0.00, 'BP070'),
-('U008', 'Student', 2, 0.00, 'BH123'),
-('U009', 'Student', 5, 0.00, 'BP351'),
-('U010', 'Student', 1, 0.00, 'BP309');
+('U007', 'Student', 0, 0.00, 'BP070'),
+('U008', 'Student', 0, 0.00, 'BH123'),
+('U009', 'Student', 1, 0.00, 'BP351'),
+('U010', 'Student', 0, 0.00, 'BP309');
 
 -- Insert Lib_Admin
 INSERT INTO Lib_Admin (user_id) VALUES
@@ -252,48 +251,48 @@ INSERT INTO Item (item_id, manager) VALUES
 INSERT INTO Room (room_id, building_no, room_no, capacity, status) VALUES
 ('R001', 1, '101', 5, 'Available'),
 ('R002', 1, '102', 5, 'Available'),
-('R003', 1, '103', 3, 'Unavailable'),
+('R003', 1, '103', 3, 'Available'),
 ('R004', 1, '104', 3, 'Available'),
 ('R005', 1, '105', 10, 'Available'),
 ('R006', 2, '201', 20, 'Available'),
-('R007', 2, '202', 10, 'Unavailable'),
+('R007', 2, '202', 10, 'Available'),
 ('R008', 2, '203', 10, 'Available'),
 ('R009', 2, '204', 5, 'Available'),
-('R010', 2, '205', 5, 'Available');
+('R010', 2, '205', 5, 'Unavailable');
 
 
 -- Populate Books
 INSERT INTO Book (book_id, title, num_of_copies, description, ratings, language) VALUES
-('B001', 'Business Dynamics', 5, 'Insights into evolving market trends.', 4.1, 'English'),
-('B002', 'Principles of Game Design', 3, 'Foundations of game development and design.', 4.5, 'English'),
-('B003', 'Modern Tourism Management', 4, 'Managing tourism businesses in the global economy.', 4.0, 'English'),
-('B004', 'Effective Communication', 3, 'Strategies for professional communication.', 4.2, 'English'),
-('B005', 'Aviation Studies', 6, 'Comprehensive exploration of the aviation industry.', 4.7, 'English'),
-('B006', 'Robotics Fundamentals', 7, 'Introduction to robotics and its applications.', 4.3, 'English'),
-('B007', 'Corporate Accounting', 4, 'Accounting principles for corporate environments.', 4.4, 'English'),
-('B008', 'Digital Media Evolution', 5, 'The rise of digital media and its impact on culture.', 4.1, 'English'),
-('B009', 'Film and Video Production', 2, 'Techniques and tools for aspiring filmmakers.', 4.8, 'English'),
-('B010', 'Fashion Design Theory', 3, 'Critical theories and practices in fashion design.', 4.2, 'English'),
-('B011', 'IT for Professionals', 8, 'Using technology effectively in professional settings.', 4.9, 'English'),
-('B012', 'Electronics Engineering', 5, 'Foundations of electronic and computer systems.', 4.3, 'English'),
-('B013', 'Digital Marketing Insights', 3, 'Strategies for successful digital marketing.', 4.6, 'English'),
-('B014', 'Foundations of Design', 4, 'Principles of design across different mediums.', 4.1, 'English'),
-('B015', 'Linguistics and You', 6, 'Exploring the impact of language on society.', 4.5, 'English'),
-('B016', 'Psychological Perspectives', 5, 'A look at modern psychology theories.', 4.8, 'English'),
-('B017', 'Software Engineering Today', 7, 'The latest trends in software engineering.', 4.9, 'English'),
-('B018', 'Nutrition and You', 4, 'Understanding food technology and nutrition.', 4.7, 'English'),
-('B019', 'Advanced Business Strategies', 3, 'In-depth strategies for growing businesses.', 4.5, 'English'),
-('B020', 'Next-Gen Game Development', 4, 'Future trends in video game development.', 4.6, 'English'),
-('B021', 'Global Tourism Economics', 5, 'Economic perspectives on global tourism.', 4.3, 'English'),
-('B022', 'Advanced Robotics', 2, 'Emerging technologies in robotics.', 4.8, 'English'),
-('B023', 'Accounting Ethics', 3, 'Ethical considerations in modern accounting.', 4.7, 'English'),
-('B024', 'Media and Society', 6, 'Examining the role of media in modern societies.', 4.2, 'English'),
-('B025', 'Video Editing Techniques', 5, 'Mastering post-production in film and video.', 4.9, 'English'),
-('B026', 'Contemporary Fashion Trends', 3, 'Exploring current trends in the fashion industry.', 4.1, 'English'),
-('B027', 'Information Security', 4, 'Principles of securing digital information.', 4.5, 'English'),
-('B028', 'Circuit Design', 2, 'Essentials of electronic circuit design.', 4.6, 'English'),
-('B029', 'Social Media Marketing', 5, 'Leveraging social media for business success.', 4.8, 'English'),
-('B030', 'Therapeutic Diets', 3, 'Diet planning for various health conditions.', 4.7, 'English');
+('B001', 'Business Dynamics', 5, 'Insights into evolving market trends.', 4.0, 'English'),
+('B002', 'Principles of Game Design', 3, 'Foundations of game development and design.', 4.33, 'English'),
+('B003', 'Modern Tourism Management', 4, 'Managing tourism businesses in the global economy.', 3.67, 'English'),
+('B004', 'Effective Communication', 3, 'Strategies for professional communication.', 4.0, 'English'),
+('B005', 'Aviation Studies', 6, 'Comprehensive exploration of the aviation industry.', 4.67, 'English'),
+('B006', 'Robotics Fundamentals', 1, 'Introduction to robotics and its applications.', 3.67, 'English'),
+('B007', 'Corporate Accounting', 1, 'Accounting principles for corporate environments.', 4.67, 'English'),
+('B008', 'Digital Media Evolution', 1, 'The rise of digital media and its impact on culture.', 4.0, 'English'),
+('B009', 'Film and Video Production', 1, 'Techniques and tools for aspiring filmmakers.', 4.0, 'English'),
+('B010', 'Fashion Design Theory', 1, 'Critical theories and practices in fashion design.', 3.67, 'English'),
+('B011', 'IT for Professionals', 1, 'Using technology effectively in professional settings.', NULL, 'English'),
+('B012', 'Electronics Engineering', 1, 'Foundations of electronic and computer systems.', NULL, 'English'),
+('B013', 'Digital Marketing Insights', 1, 'Strategies for successful digital marketing.', NULL, 'English'),
+('B014', 'Foundations of Design', 1, 'Principles of design across different mediums.', NULL, 'English'),
+('B015', 'Linguistics and You', 1, 'Exploring the impact of language on society.', NULL, 'English'),
+('B016', 'Psychological Perspectives', 1, 'A look at modern psychology theories.', NULL, 'English'),
+('B017', 'Software Engineering Today', 1, 'The latest trends in software engineering.', NULL, 'English'),
+('B018', 'Nutrition and You', 1, 'Understanding food technology and nutrition.', NULL, 'English'),
+('B019', 'Advanced Business Strategies', 1, 'In-depth strategies for growing businesses.', NULL, 'English'),
+('B020', 'Next-Gen Game Development', 1, 'Future trends in video game development.', NULL, 'English'),
+('B021', 'Global Tourism Economics', 1, 'Economic perspectives on global tourism.', NULL, 'English'),
+('B022', 'Advanced Robotics', 1, 'Emerging technologies in robotics.', NULL, 'English'),
+('B023', 'Accounting Ethics', 1, 'Ethical considerations in modern accounting.', NULL, 'English'),
+('B024', 'Media and Society', 1, 'Examining the role of media in modern societies.', NULL, 'English'),
+('B025', 'Video Editing Techniques', 1, 'Mastering post-production in film and video.', NULL, 'English'),
+('B026', 'Contemporary Fashion Trends', 1, 'Exploring current trends in the fashion industry.', NULL, 'English'),
+('B027', 'Information Security', 1, 'Principles of securing digital information.', NULL, 'English'),
+('B028', 'Circuit Design', 1, 'Essentials of electronic circuit design.', NULL, 'English'),
+('B029', 'Social Media Marketing', 1, 'Leveraging social media for business success.', NULL, 'English'),
+('B030', 'Therapeutic Diets', 1, 'Diet planning for various health conditions.', NULL, 'English');
 
 
 -- Insert Ebooks
@@ -332,28 +331,52 @@ INSERT INTO Ebooks (book_id, isbn, format, url, file_size_mb) VALUES
 
 -- Insert Hard_Copies
 INSERT INTO Hard_Copies (book_id, copy_id, status, edition, year_published, location) VALUES
-('B001', 'B001C1', 'Unavailable', 'First', 2023, 'LOC001'),
-('B001', 'B001C2', 'Available', 'First', 2023, 'LOC001'),
-('B001', 'B001C3', 'Available', 'First', 2023, 'LOC001'),
-('B001', 'B001C4', 'Unavailable', 'First', 2023, 'LOC001'),
-('B001', 'B001C5', 'Available', 'First', 2023, 'LOC001'),
-('B002', 'B002C1', 'Available', 'First', 2023, 'LOC002'),
-('B002', 'B002C2', 'Available', 'First', 2023, 'LOC002'),
-('B002', 'B002C3', 'Unavailable', 'First', 2023, 'LOC002'),
-('B003', 'B003C1', 'Unavailable', 'First', 2023, 'LOC003'),
-('B003', 'B003C2', 'Available', 'First', 2023, 'LOC003'),
-('B003', 'B003C3', 'Available', 'First', 2023, 'LOC003'),
+('B001', 'B001C1', 'Available', 'Seventh', 2009, 'LOC001'),
+('B001', 'B001C2', 'Available', 'Eighth', 2011, 'LOC001'),
+('B001', 'B001C3', 'Available', 'First', 2002, 'LOC001'),
+('B001', 'B001C4', 'Available', 'Thirteenth', 2023, 'LOC001'),
+('B001', 'B001C5', 'Available', 'First', 2014, 'LOC001'),
+('B002', 'B002C1', 'Available', 'First', 2016, 'LOC002'),
+('B002', 'B002C2', 'Available', 'First', 2012, 'LOC002'),
+('B002', 'B002C3', 'Available', 'Sixth', 2018, 'LOC002'),
+('B003', 'B003C1', 'Available', 'First', 1999, 'LOC003'),
+('B003', 'B003C2', 'Available', 'First', 2005, 'LOC003'),
+('B003', 'B003C3', 'Available', 'Ninth', 2004, 'LOC003'),
 ('B003', 'B003C4', 'Available', 'First', 2023, 'LOC003'),
-('B004', 'B004C1', 'Available', 'First', 2023, 'LOC004'),
-('B004', 'B004C2', 'Unavailable', 'First', 2023, 'LOC004'),
-('B004', 'B004C3', 'Unavailable', 'First', 2023, 'LOC004'),
+('B004', 'B004C1', 'Unavailable', 'First', 2021, 'LOC004'),
+('B004', 'B004C2', 'Available', 'First', 2021, 'LOC004'),
+('B004', 'B004C3', 'Available', 'First', 2021, 'LOC004'),
 ('B005', 'B005C1', 'Available', 'First', 2023, 'LOC005'),
 ('B005', 'B005C2', 'Available', 'First', 2023, 'LOC005'),
 ('B005', 'B005C3', 'Available', 'First', 2023, 'LOC005'),
-('B005', 'B005C4', 'Unavailable', 'First', 2023, 'LOC005'),
+('B005', 'B005C4', 'Available', 'First', 2023, 'LOC005'),
 ('B005', 'B005C5', 'Available', 'First', 2023, 'LOC005'),
-('B005', 'B005C6', 'Available', 'First', 2023, 'LOC005');
-
+('B005', 'B005C6', 'Available', 'Second', 2024, 'LOC005'),
+('B006', 'B006C1', 'Available', 'Second', 2023, 'LOC007'),
+('B007', 'B007C1', 'Available', 'Third', 2023, 'LOC008'),
+('B008', 'B008C1', 'Available', 'Fourth', 2023, 'LOC009'),
+('B009', 'B009C1', 'Available', 'Fifth', 2023, 'LOC010'),
+('B010', 'B010C1', 'Available', 'Second', 2023, 'LOC007'),
+('B011', 'B011C1', 'Available', 'Third', 2023, 'LOC008'),
+('B012', 'B012C1', 'Available', 'Fourth', 2023, 'LOC009'),
+('B013', 'B013C1', 'Available', 'Fifth', 2023, 'LOC010'),
+('B014', 'B014C1', 'Available', 'Second', 2023, 'LOC007'),
+('B015', 'B015C1', 'Available', 'Third', 2023, 'LOC008'),
+('B016', 'B016C1', 'Available', 'Fourth', 2023, 'LOC009'),
+('B017', 'B017C1', 'Available', 'Fifth', 2023, 'LOC010'),
+('B018', 'B018C1', 'Available', 'Second', 2023, 'LOC007'),
+('B019', 'B019C1', 'Available', 'Third', 2023, 'LOC008'),
+('B020', 'B020C1', 'Available', 'Fourth', 2023, 'LOC009'),
+('B021', 'B021C1', 'Available', 'Fifth', 2023, 'LOC010'),
+('B022', 'B022C1', 'Available', 'Second', 2023, 'LOC007'),
+('B023', 'B023C1', 'Available', 'Third', 2023, 'LOC008'),
+('B024', 'B024C1', 'Available', 'Fourth', 2023, 'LOC009'),
+('B025', 'B025C1', 'Available', 'Fifth', 2023, 'LOC010'),
+('B026', 'B026C1', 'Available', 'Second', 2023, 'LOC007'),
+('B027', 'B027C1', 'Available', 'Third', 2023, 'LOC008'),
+('B028', 'B028C1', 'Available', 'Fourth', 2023, 'LOC009'),
+('B029', 'B029C1', 'Available', 'Fifth', 2023, 'LOC010'),
+('B030', 'B030C1', 'Available', 'Second', 2023, 'LOC007');
 
 
 -- Insert Populate Author
@@ -426,11 +449,12 @@ INSERT INTO Review (review_id, rating, comment, reviewer, book) VALUES
 
 
 -------- Populate Fine
-INSERT INTO Fine (fine_id, amount, reason, status, incurred_date, due_date, paid_date, payer, item_id) VALUES
-('FINE001', 50.00, 'Late return', 'Unpaid', DATE '2023-10-01', DATE '2023-10-15', NULL, 'MEM001', 'ITEM001'),
-('FINE002', 25.00, 'Damaged book', 'Paid', DATE '2023-09-01', DATE '2023-09-15', DATE '2023-09-14', 'MEM002', 'ITEM002'),
-('FINE003', 15.00, 'Late return', 'Paid', DATE '2023-08-20', DATE '2023-09-05', DATE '2023-09-04', 'MEM003', 'ITEM003'),
-('FINE010', 100.00, 'Lost item', 'Unpaid', DATE '2023-09-01', DATE '2023-09-15', NULL, 'MEM010', 'ITEM010');
+INSERT INTO Fine (fine_id, amount, reason, status, incurred_date, due_date, paid_date, payer, book_id, copy_id) VALUES
+('FINE001', 50.00, 'Late return', 'Unpaid', DATE '2023-11-11', DATE '2024-1-11', NULL, 'U010', 'B005', 'B005C4'),
+('FINE002', 25.00, 'Damaged book', 'Paid', DATE '2023-10-12', DATE '2023-12-10', DATE '2023-11-14', 'U003', 'B004', 'B004C1'),
+('FINE003', 25.00, 'Damaged book', 'Paid', DATE '2023-08-20', DATE '2023-09-05', DATE '2023-09-04', 'U004', 'B005', 'B005C2'),
+('FINE004', 25.00, 'Damaged book', 'Unpaid', DATE '2023-08-20', DATE '2023-09-05', NULL, 'U007', 'B003', 'B003C3'),
+('FINE005', 100.00, 'Lost item', 'Unpaid', DATE '2023-09-01', DATE '2023-09-15', NULL, 'MEM010', 'ITEM010');
 
 
 -------- Populate Requests (created_at) 
@@ -493,6 +517,7 @@ INSERT INTO Member_Course (member_id, course_code) VALUES
 ('U002', 'EEET2600'),
 ('U003', 'EEET2601'),
 ('U004', 'EEET2603'),
+('U004', 'EEET2599'),
 ('U005', 'MATH2394'),
 ('U006', 'OENG1181'),
 ('U007', 'BAFI3239'),
@@ -566,11 +591,11 @@ INSERT INTO Member_Room (booking_id, member_id, room_id, reservation_date, start
 ('BKG017', 'U010', 'R009', DATE '2023-10-16', TIMESTAMP '2023-10-16 09:00:00', TIMESTAMP '2023-10-16 11:00:00'),
 ('BKG018', 'U010', 'R010', DATE '2023-10-17', TIMESTAMP '2023-10-17 10:00:00', TIMESTAMP '2023-10-17 12:00:00'),
 ('BKG019', 'U006', 'R009', DATE '2023-10-18', TIMESTAMP '2023-10-18 14:00:00', TIMESTAMP '2023-10-18 16:00:00'),
-('BKG020', 'U009', 'R010', DATE '2023-10-19', TIMESTAMP '2023-10-19 10:00:00', TIMESTAMP '2023-10-19 12:00:00');
+('BKG020', 'U009', 'R010', DATE '2024-04-27', TIMESTAMP '2024-10-19 10:00:00', TIMESTAMP '2024-10-19 12:00:00');
 
 
 -- Populate Member_HardCopy table 
-INSERT INTO Member_HardCopy (borrow_id, member, book, bcopy, issue_date, return_date, due_date, checkin_condition, checkout_condition, borrower) VALUES
+INSERT INTO Member_HardCopy (borrow_id, member, book, bcopy, issue_date, due_date, return_date, checkin_condition, checkout_condition, borrower) VALUES
 ('BRW001', 'U001', 'B001', 'B001C1', DATE '2023-10-01', DATE '2023-10-15', DATE '2023-10-08', 'New', 'New', 'U001'),
 ('BRW002', 'U001', 'B005', 'B005C1', DATE '2023-10-02', DATE '2023-10-16', DATE '2023-10-09', 'New', 'New', 'U001'),
 ('BRW003', 'U002', 'B002', 'B002C1', DATE '2023-10-03', DATE '2023-10-17', DATE '2023-10-10', 'Damaged', 'Damaged', 'U002'),
@@ -589,7 +614,7 @@ INSERT INTO Member_HardCopy (borrow_id, member, book, bcopy, issue_date, return_
 ('BRW016', 'U008', 'B001', 'B001C4', DATE '2023-10-16', DATE '2023-10-30', DATE '2023-10-23', 'New', 'New', 'U008'),
 ('BRW017', 'U009', 'B002', 'B002C1', DATE '2023-10-17', DATE '2023-10-31', DATE '2023-10-24', 'Damaged', 'Damaged', 'U009'),
 ('BRW018', 'U009', 'B003', 'B003C4', DATE '2023-10-18', DATE '2023-11-01', DATE '2023-10-25', 'New', 'New', 'U009'),
-('BRW019', 'U010', 'B004', 'B004C1', DATE '2023-10-19', DATE '2023-11-02', DATE '2023-10-26', 'Damaged', 'Damaged', 'U010'),
+('BRW019', 'U009', 'B004', 'B004C1', DATE '2023-10-19', DATE '2023-11-02', NULL, 'Damaged', NULL, 'U010'),
 ('BRW020', 'U010', 'B005', 'B005C4', DATE '2023-10-20', DATE '2023-11-03', DATE '2023-10-27', 'New', 'New', 'U010');
 
 -- Populate Book_Author
@@ -598,7 +623,10 @@ INSERT INTO Book_Author (book_id, author_id) VALUES
 ('B005', 'AUTH005'), ('B006', 'AUTH006'), ('B007', 'AUTH007'), ('B008', 'AUTH008'),
 ('B009', 'AUTH009'), ('B010', 'AUTH010'), ('B011', 'AUTH011'), ('B012', 'AUTH012'),
 ('B013', 'AUTH013'), ('B014', 'AUTH014'), ('B015', 'AUTH015'), ('B016', 'AUTH016'),
-('B017', 'AUTH017'), ('B018', 'AUTH018'), ('B019', 'AUTH019'), ('B020', 'AUTH020');
+('B017', 'AUTH017'), ('B018', 'AUTH018'), ('B019', 'AUTH019'), ('B020', 'AUTH020'),
+('B021', 'AUTH001'), ('B022', 'AUTH001'), ('B023', 'AUTH002'), ('B024', 'AUTH005'),
+('B025', 'AUTH020'), ('B026', 'AUTH019'), ('B027', 'AUTH007'), ('B028', 'AUTH008'),
+('B029', 'AUTH020'), ('B030', 'AUTH017'), ('B027', 'AUTH011'), ('B005', 'AUTH013');
 
 
 -- Populate Book_Course
@@ -607,7 +635,10 @@ INSERT INTO Book_Course (book_id, course_id) VALUES
 ('B005', 'BP070'), ('B006', 'COSC2440'), ('B007', 'ACCT2105'), ('B008', 'COMM2752'),
 ('B009', 'VART3626'), ('B010', 'MKTG1447'), ('B011', 'ISYS2109'), ('B012', 'EEET2600'),
 ('B013', 'MKTG1420'), ('B014', 'COSC2532'), ('B015', 'LANG1318'), ('B016', 'PSYC101'),
-('B017', 'EEET2482'), ('B018', 'FOHO1024'), ('B019', 'MKTG1205'), ('B020', 'COSC2430');
+('B017', 'EEET2482'), ('B018', 'FOHO1024'), ('B019', 'MKTG1205'), ('B020', 'COSC2430'),
+('B022', 'EEET2599'), ('B022', 'EEET2600'), ('B022', 'EEET2603'), ('B027', 'COSC2429'),
+('B027', 'ISYS3414'), ('B027', 'COSC2440'), ('B028', 'EEET2601'), ('B028', 'EEET2599'),
+('B030', 'FOHO1024');
 
 
 -- Populate Book_Category
@@ -625,9 +656,7 @@ INSERT INTO Book_Major (book_id, major_id) VALUES
 ('B005', 'BP070'), ('B006', 'BH123'), ('B007', 'BP351'), ('B008', 'BP309'),
 ('B009', 'BP325'), ('B010', 'BP327'), ('B011', 'BP162'), ('B012', 'BH073'),
 ('B013', 'BP318'), ('B014', 'BP316'), ('B015', 'BP317'), ('B016', 'BP154'),
-('B017', 'BH120'), ('B018', 'BP199'), ('B019', 'BP343'), ('B020', 'BP214');
-
-
-
-
-
+('B017', 'BH120'), ('B018', 'BP199'), ('B019', 'BP343'), ('B020', 'BP214')
+('B021', 'BP312'), ('B022', 'BH123'), ('B023', 'BP070'), ('B024', 'BH123'),
+('B025', 'BP351'), ('B026', 'BP309'), ('B027', 'BP162'), ('B028', 'BH073'),
+('B029', 'BP318'), ('B030', 'BP199'), ('B028', 'BH073'), ('B027', 'BH120');
