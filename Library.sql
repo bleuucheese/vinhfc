@@ -1,49 +1,3 @@
--- Insert Lib_User
-INSERT INTO Lib_User (user_id, username, f_name, l_name, email, pwd) VALUES
-('U001', 'anh.lam', 'Anh', 'Lam', 'lamtramanh@gmail.com', 'practical'),
-('U002', 'bao.ho', 'Bao', 'Ho', 'honguyenbao@gmail.com', 'database'),
-('U003', 'johnathan.crellin', 'Johnathan', 'Crellin', 'johncrel@gmail.com', 'concepts'),
-('U004', 'duc.pham', 'Duc', 'Pham', 'phamvietduc@gmail.com', 'pdc'),
-('U005', 'evelyn.vo', 'Evelyn', 'Vo', 'voeva@gmail.com', 'sql'),
-('U006', 'joshua.hansen', 'Joshua', 'Hansen', 'xthejosh@gmail.com', 'oracle'),
-('U007', 'giang.dinh', 'Giang', 'Dinh', 'dinhquynhgiang@gmail.com', 'apex'),
-('U008', 'khai.luong', 'Khai', 'Luong', 'luongminhkhai@gmail.com', 'library'),
-('U009', 'vy.kieu', 'Vy', 'Kieu', 'kieukhanhvy@gmail.com', 'system'),
-('U010', 'iris.nguyen', 'Iris', 'Nguyen', 'ngmaihuong@gmail.com', 'erd'),
-('L001', 'andrew.tran', 'Andrew', 'Tran', 'litvandrius@gmail.com', 'relationalschema'),
-('L002', 'chi.dang', 'Chi', 'Dang', 'dangtungchi@gmail.com', 'entity'),
-('L003', 'thu.le', 'Thu', 'Le', 'lehathu@gmail.com', 'relation'),
-('A001', 'ha.trinh', 'Ha', 'Trinh', 'fuhgetmenut@gmail.com', 'schema'),
-('A002', 'bach.nguyen', 'Bach', 'Nguyen', 'bachesng@gmail.com', 'hierachy'),
-('A003', 'vinh.truong', 'Vinh', 'Truong', 'trngxuanvinh@gmail.com', 'HD');
-
--- Insert Lib_Member
-INSERT INTO Lib_Member (user_id, role, total_book_borrowed, total_fine_paid, program_code) VALUES
-('U001', 'Student', 0, 0.00, 'BP343'),
-('U002', 'Student', 0, 0.00, 'BP214'),
-('U003', 'Faculty', 0, 25.00, NULL),
-('U004', 'Student', 0, 25.00, 'BP312'),
-('U005', 'Student', 0, 0.00, 'BP222'),
-('U006', 'Faculty', 0, 0.00, NULL),
-('U007', 'Student', 0, 0.00, 'BP070'),
-('U008', 'Student', 0, 0.00, 'BH123'),
-('U009', 'Student', 1, 0.00, 'BP351'),
-('U010', 'Student', 0, 0.00, 'BP309');
-
--- Insert Lib_Admin
-INSERT INTO Lib_Admin (user_id) VALUES
-('A001'),
-('A002'),
-('A003');
-
-
--- Populate Lib_Librarian
-INSERT INTO Lib_Librarian (user_id) VALUES
-('L001'),
-('L002'),
-('L003');
-
-
 -- Populate Major
 INSERT INTO Major (major_id, school, name) VALUES
 ('BP343', 'TBS', 'Business'),
@@ -154,7 +108,7 @@ INSERT INTO Course (course_id, name) VALUES
 ('GRAP2413', 'Advertising Media'); 
 
 
--- Insert Category
+-- Populate Category
 INSERT INTO Category (category_id, name) VALUES
 ('CAT001', 'Mathematics'),
 ('CAT002', 'Physics'),
@@ -196,8 +150,7 @@ INSERT INTO Category (category_id, name) VALUES
 ('CAT038', 'Religious and Spiritual'),
 ('CAT039', 'Poetry');
 
-
--- Insert Location
+-- Populate Location
 INSERT INTO Location (location_id, campus, floor, shelf_no, line_no) VALUES
 ('LOC001', 'Melbourne', 1, 'C1', 1),
 ('LOC002', 'Beanland', 2, 'A1', 2),
@@ -209,6 +162,53 @@ INSERT INTO Location (location_id, campus, floor, shelf_no, line_no) VALUES
 ('LOC008', 'Hanoi', 2, 'B2', 2),
 ('LOC009', 'Beanland', 4, 'E1', 1),
 ('LOC010', 'Beanland', 1, 'C1', 2);
+
+
+-- Populate Lib_User
+INSERT INTO Lib_User (user_id, username, f_name, l_name, email, pwd) VALUES
+('U001', 'anh.lam', 'Anh', 'Lam', 'lamtramanh@gmail.com', 'practical'),
+('U002', 'bao.ho', 'Bao', 'Ho', 'honguyenbao@gmail.com', 'database'),
+('U003', 'johnathan.crellin', 'Johnathan', 'Crellin', 'johncrel@gmail.com', 'concepts'),
+('U004', 'duc.pham', 'Duc', 'Pham', 'phamvietduc@gmail.com', 'pdc'),
+('U005', 'evelyn.vo', 'Evelyn', 'Vo', 'voeva@gmail.com', 'sql'),
+('U006', 'joshua.hansen', 'Joshua', 'Hansen', 'xthejosh@gmail.com', 'oracle'),
+('U007', 'giang.dinh', 'Giang', 'Dinh', 'dinhquynhgiang@gmail.com', 'apex'),
+('U008', 'khai.luong', 'Khai', 'Luong', 'luongminhkhai@gmail.com', 'library'),
+('U009', 'vy.kieu', 'Vy', 'Kieu', 'kieukhanhvy@gmail.com', 'system'),
+('U010', 'iris.nguyen', 'Iris', 'Nguyen', 'ngmaihuong@gmail.com', 'erd'),
+('L001', 'andrew.tran', 'Andrew', 'Tran', 'litvandrius@gmail.com', 'relationalschema'),
+('L002', 'chi.dang', 'Chi', 'Dang', 'dangtungchi@gmail.com', 'entity'),
+('L003', 'thu.le', 'Thu', 'Le', 'lehathu@gmail.com', 'relation'),
+('A001', 'ha.trinh', 'Ha', 'Trinh', 'fuhgetmenut@gmail.com', 'schema'),
+('A002', 'bach.nguyen', 'Bach', 'Nguyen', 'bachesng@gmail.com', 'hierachy'),
+('A003', 'vinh.truong', 'Vinh', 'Truong', 'trngxuanvinh@gmail.com', 'HD');
+
+-- Populate Lib_Member
+INSERT INTO Lib_Member (user_id, role, total_book_borrowed, total_fine_paid, program_code) VALUES
+('U001', 'Student', 0, 0.00, 'BP343'),
+('U002', 'Student', 0, 0.00, 'BP214'),
+('U003', 'Faculty', 0, 25.00, NULL),
+('U004', 'Student', 0, 25.00, 'BP312'),
+('U005', 'Student', 0, 0.00, 'BP222'),
+('U006', 'Faculty', 0, 0.00, NULL),
+('U007', 'Student', 0, 0.00, 'BP070'),
+('U008', 'Student', 0, 0.00, 'BH123'),
+('U009', 'Student', 1, 0.00, 'BP351'),
+('U010', 'Student', 0, 0.00, 'BP309');
+
+-- Populate Lib_Admin
+INSERT INTO Lib_Admin (user_id) VALUES
+('A001'),
+('A002'),
+('A003');
+
+
+-- Populate Lib_Librarian
+INSERT INTO Lib_Librarian (user_id) VALUES
+('L001'),
+('L002'),
+('L003');
+
 
 -- Populate Item 
 INSERT INTO Item (item_id) VALUES
@@ -267,7 +267,7 @@ INSERT INTO Room (room_id, building_no, room_no, capacity, status) VALUES
 ('R010', 2, '205', 5, 'Unavailable');
 
 
--- Populate Books
+-- Populate Book
 INSERT INTO Book (book_id, title, num_of_copies, description, ratings, language) VALUES
 ('B001', 'Business Dynamics', 5, 'Insights into evolving market trends.', 4.0, 'English'),
 ('B002', 'Principles of Game Design', 3, 'Foundations of game development and design.', 4.33, 'English'),
@@ -600,7 +600,7 @@ INSERT INTO Member_Room (booking_id, member_id, room_id, reservation_date, start
 ('BKG020', 'U009', 'R010', DATE '2024-04-27', TIMESTAMP '2024-10-19 10:00:00', TIMESTAMP '2024-10-19 12:00:00');
 
 
--- Populate Member_HardCopy table 
+-- Populate Member_HardCopy
 INSERT INTO Member_HardCopy (borrow_id, member, book, bcopy, issue_date, due_date, return_date, checkin_condition, checkout_condition) VALUES
 ('BRW001', 'U001', 'B001', 'B001C1', DATE '2023-10-01', DATE '2023-10-15', DATE '2023-10-08', 'New', 'New'),
 ('BRW002', 'U001', 'B005', 'B005C1', DATE '2023-10-02', DATE '2023-10-16', DATE '2023-10-09', 'New', 'New'),
