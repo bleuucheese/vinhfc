@@ -126,7 +126,7 @@ INSERT INTO Category (category_id, name) VALUES
 ('CAT017', 'Law'),
 ('CAT018', 'Medicine'),
 ('CAT019', 'Environmental Science'),
-('CAT020', 'Sociology');
+('CAT020', 'Sociology'),
 ('CAT021', 'Social Issues'),
 ('CAT022', 'Self-Help'),
 ('CAT023', 'Comics'),

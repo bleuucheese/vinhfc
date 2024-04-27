@@ -1,4 +1,4 @@
-use vinhfc;
+use vinht;
 CREATE TABLE Major (
     major_id VARCHAR(15) PRIMARY KEY,
     school VARCHAR(50) CHECK (school IN ('SSET', 'TBS', 'SCD', 'SEUP')),
@@ -34,7 +34,7 @@ CREATE TABLE Lib_User (
 
 CREATE TABLE Lib_Member (
     user_id VARCHAR(15) PRIMARY KEY,
-    role VARCHAR(50) CHECK (role IN ('Student', 'Staff')),
+    role VARCHAR(50) CHECK (role IN ('Student', 'Faculty')),
     total_book_borrowed INT DEFAULT 0,
     total_fine_paid DECIMAL(10,2) DEFAULT 0.00,
     program_code VARCHAR(15),
@@ -42,7 +42,7 @@ CREATE TABLE Lib_Member (
     FOREIGN KEY (program_code) REFERENCES Major(major_id),
     CHECK (
         (role = 'Student' AND total_book_borrowed <= 10) OR
-        (role = 'Staff' AND total_book_borrowed <= 20)
+        (role = 'Faculty' AND total_book_borrowed <= 20)
     )
 );
 
@@ -169,8 +169,9 @@ CREATE TABLE Member_Room (
     end_date TIMESTAMP,
     FOREIGN KEY (member_id) REFERENCES Lib_Member(user_id),
     FOREIGN KEY (room_id) REFERENCES Room(room_id),
-    CHECK ((end_date - start_date) <= INTERVAL '2' HOUR)  -- Ensures booking duration does not exceed 2 hours
+    CHECK (TIMESTAMPDIFF(HOUR, start_date, end_date) <= 2)  -- Ensures booking duration does not exceed 2 hours
 );
+
 
 CREATE TABLE Member_HardCopy (
     borrow_id VARCHAR(15) PRIMARY KEY,
@@ -183,7 +184,7 @@ CREATE TABLE Member_HardCopy (
     checkin_condition VARCHAR(255) CHECK (checkin_condition IN ('New', 'Damaged')),  -- Only allows 'New' or 'Damaged'
     checkout_condition VARCHAR(255) CHECK (checkout_condition IN ('New', 'Damaged')),  -- Only allows 'New' or 'Damaged'
     FOREIGN KEY (member) REFERENCES Lib_Member(user_id),
-    FOREIGN KEY (book, bcopy) REFERENCES Hard_Copies(book_id, copy_id),
+    FOREIGN KEY (book, bcopy) REFERENCES Hard_Copies(book_id, copy_id)
 );
 
 
@@ -218,7 +219,3 @@ CREATE TABLE Book_Major (
     FOREIGN KEY (book_id) REFERENCES Book(book_id),
     FOREIGN KEY (major_id) REFERENCES Major(major_id)
 );
-
--- Test data
-SELECT * from Course;
-SELECT * FROM Major;

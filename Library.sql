@@ -17,15 +17,14 @@ INSERT INTO Lib_User (user_id, username, f_name, l_name, email, pwd) VALUES
 ('A002', 'bach.nguyen', 'Bach', 'Nguyen', 'bachesng@gmail.com', 'hierachy'),
 ('A003', 'vinh.truong', 'Vinh', 'Truong', 'trngxuanvinh@gmail.com', 'HD');
 
-
 -- Insert Lib_Member
 INSERT INTO Lib_Member (user_id, role, total_book_borrowed, total_fine_paid, program_code) VALUES
 ('U001', 'Student', 0, 0.00, 'BP343'),
 ('U002', 'Student', 0, 0.00, 'BP214'),
-('U003', 'Lecturer', 0, 25.00, NULL),
+('U003', 'Faculty', 0, 25.00, NULL),
 ('U004', 'Student', 0, 25.00, 'BP312'),
 ('U005', 'Student', 0, 0.00, 'BP222'),
-('U006', 'Lecturer', 0, 0.00, NULL),
+('U006', 'Faculty', 0, 0.00, NULL),
 ('U007', 'Student', 0, 0.00, 'BP070'),
 ('U008', 'Student', 0, 0.00, 'BH123'),
 ('U009', 'Student', 1, 0.00, 'BP351'),
@@ -177,26 +176,25 @@ INSERT INTO Category (category_id, name) VALUES
 ('CAT018', 'Medicine'),
 ('CAT019', 'Environmental Science'),
 ('CAT020', 'Sociology'),
-('CAT001', 'Mathematics'),
-('CAT002', 'Physics'),
-('CAT003', 'Chemistry'),
-('CAT004', 'Biology'),
-('CAT005', 'Engineering'),
-('CAT006', 'Computer Science'),
-('CAT007', 'Economics'),
-('CAT008', 'Psychology'),
-('CAT009', 'Literature'),
-('CAT010', 'History'),
-('CAT011', 'Philosophy'),
-('CAT012', 'Political Science'),
-('CAT013', 'Languages'),
-('CAT014', 'Arts'),
-('CAT015', 'Education'),
-('CAT016', 'Business'),
-('CAT017', 'Law'),
-('CAT018', 'Medicine'),
-('CAT019', 'Environmental Science'),
-('CAT020', 'Sociology');
+('CAT021', 'Social Issues'),
+('CAT022', 'Self-Help'),
+('CAT023', 'Comics'),
+('CAT024', 'Graphic Novels'),
+('CAT025', 'Biographies'),
+('CAT026', 'Memoirs'),
+('CAT027', 'Science Fiction'),
+('CAT028', 'Fantasy'),
+('CAT029', 'Mystery'),
+('CAT030', 'Thriller'),
+('CAT031', 'Romance'),
+('CAT032', 'Adventure'),
+('CAT033', 'Cooking'),
+('CAT034', 'Health and Fitness'),
+('CAT035', 'Travel'),
+('CAT036', 'Crafts and Hobbies'),
+('CAT037', 'Personal Finance'),
+('CAT038', 'Religious and Spiritual'),
+('CAT039', 'Poetry');
 
 
 -- Insert Location
@@ -212,9 +210,8 @@ INSERT INTO Location (location_id, campus, floor, shelf_no, line_no) VALUES
 ('LOC009', 'Beanland', 4, 'E1', 1),
 ('LOC010', 'Beanland', 1, 'C1', 2);
 
-
 -- Populate Item 
-INSERT INTO Item (item_id, manager) VALUES
+INSERT INTO Item (item_id) VALUES
 ('B001'),
 ('B002'),
 ('B003'),
@@ -235,6 +232,16 @@ INSERT INTO Item (item_id, manager) VALUES
 ('B018'),
 ('B019'),
 ('B020'),
+('B021'),
+('B022'),
+('B023'),
+('B024'),
+('B025'),
+('B026'),
+('B027'),
+('B028'),
+('B029'),
+('B030'),
 ('R001'),
 ('R002'),
 ('R003'),
@@ -245,7 +252,6 @@ INSERT INTO Item (item_id, manager) VALUES
 ('R008'),
 ('R009'),
 ('R010');
-
 
 -- Populate Room 
 INSERT INTO Room (room_id, building_no, room_no, capacity, status) VALUES
@@ -454,11 +460,11 @@ INSERT INTO Fine (fine_id, amount, reason, status, incurred_date, due_date, paid
 ('FINE002', 25.00, 'Damaged book', 'Paid', DATE '2023-10-12', DATE '2023-12-10', DATE '2023-11-14', 'U003', 'B004', 'B004C1'),
 ('FINE003', 25.00, 'Damaged book', 'Paid', DATE '2023-08-20', DATE '2023-09-05', DATE '2023-09-04', 'U004', 'B005', 'B005C2'),
 ('FINE004', 25.00, 'Damaged book', 'Unpaid', DATE '2023-08-20', DATE '2023-09-05', NULL, 'U007', 'B003', 'B003C3'),
-('FINE005', 100.00, 'Lost item', 'Unpaid', DATE '2023-09-01', DATE '2023-09-15', NULL, 'MEM010', 'ITEM010');
+('FINE005', 100.00, 'Lost item', 'Unpaid', DATE '2023-09-01', DATE '2023-09-15', NULL, 'U009', 'B004', 'B004C1');
 
 
 -------- Populate Requests (created_at) 
-INSERT INTO Requests (request_id, type, created_at, message, status, sender, receiver) VALUES
+INSERT INTO Requests (request_id, type, message, status, sender, receiver) VALUES
 ('REQ001', 'Book Reservation', 'Request to reserve "Business Dynamics" for upcoming coursework.', 'Pending', 'U001', 'L001'),
 ('REQ002', 'Renewal', 'Request to renew "Principles of Game Design" for another month.', 'Ongoing', 'U002', 'L001'),
 ('REQ003', 'Book Purchase', 'Suggest purchasing more resources on modern tourism management.', 'Resolved', 'U003', 'L002'),
@@ -595,27 +601,27 @@ INSERT INTO Member_Room (booking_id, member_id, room_id, reservation_date, start
 
 
 -- Populate Member_HardCopy table 
-INSERT INTO Member_HardCopy (borrow_id, member, book, bcopy, issue_date, due_date, return_date, checkin_condition, checkout_condition, borrower) VALUES
-('BRW001', 'U001', 'B001', 'B001C1', DATE '2023-10-01', DATE '2023-10-15', DATE '2023-10-08', 'New', 'New', 'U001'),
-('BRW002', 'U001', 'B005', 'B005C1', DATE '2023-10-02', DATE '2023-10-16', DATE '2023-10-09', 'New', 'New', 'U001'),
-('BRW003', 'U002', 'B002', 'B002C1', DATE '2023-10-03', DATE '2023-10-17', DATE '2023-10-10', 'Damaged', 'Damaged', 'U002'),
-('BRW004', 'U002', 'B003', 'B003C1', DATE '2023-10-04', DATE '2023-10-18', DATE '2023-10-11', 'Damaged', 'Damaged', 'U002'),
-('BRW005', 'U003', 'B004', 'B004C1', DATE '2023-10-05', DATE '2023-10-19', DATE '2023-10-12', 'New', 'Damaged', 'U003'),
-('BRW006', 'U003', 'B001', 'B001C2', DATE '2023-10-06', DATE '2023-10-20', DATE '2023-10-13', 'Damaged', 'Damaged', 'U003'),
-('BRW007', 'U004', 'B002', 'B002C2', DATE '2023-10-07', DATE '2023-10-21', DATE '2023-10-14', 'New', 'New', 'U004'),
-('BRW008', 'U004', 'B005', 'B005C2', DATE '2023-10-08', DATE '2023-10-22', DATE '2023-10-15', 'New', 'Damaged', 'U004'),
-('BRW009', 'U005', 'B003', 'B003C2', DATE '2023-10-09', DATE '2023-10-23', DATE '2023-10-16', 'New', 'New', 'U005'),
-('BRW010', 'U005', 'B004', 'B004C2', DATE '2023-10-10', DATE '2023-10-24', DATE '2023-10-17', 'Damaged', 'Damaged', 'U005'),
-('BRW011', 'U006', 'B001', 'B001C3', DATE '2023-10-11', DATE '2023-10-25', DATE '2023-10-18', 'New', 'New', 'U006'),
-('BRW012', 'U006', 'B002', 'B002C3', DATE '2023-10-12', DATE '2023-10-26', DATE '2023-10-19', 'New', 'New', 'U006'),
-('BRW013', 'U007', 'B003', 'B003C3', DATE '2023-10-13', DATE '2023-10-27', DATE '2023-10-20', 'New', 'Damaged', 'U007'),
-('BRW014', 'U007', 'B004', 'B004C3', DATE '2023-10-14', DATE '2023-10-28', DATE '2023-10-21', 'Damaged', 'Damaged', 'U007'),
-('BRW015', 'U008', 'B005', 'B005C3', DATE '2023-10-15', DATE '2023-10-29', DATE '2023-10-22', 'New', 'New', 'U008'),
-('BRW016', 'U008', 'B001', 'B001C4', DATE '2023-10-16', DATE '2023-10-30', DATE '2023-10-23', 'New', 'New', 'U008'),
-('BRW017', 'U009', 'B002', 'B002C1', DATE '2023-10-17', DATE '2023-10-31', DATE '2023-10-24', 'Damaged', 'Damaged', 'U009'),
-('BRW018', 'U009', 'B003', 'B003C4', DATE '2023-10-18', DATE '2023-11-01', DATE '2023-10-25', 'New', 'New', 'U009'),
-('BRW019', 'U009', 'B004', 'B004C1', DATE '2023-10-19', DATE '2023-11-02', NULL, 'Damaged', NULL, 'U010'),
-('BRW020', 'U010', 'B005', 'B005C4', DATE '2023-10-20', DATE '2023-11-03', DATE '2023-10-27', 'New', 'New', 'U010');
+INSERT INTO Member_HardCopy (borrow_id, member, book, bcopy, issue_date, due_date, return_date, checkin_condition, checkout_condition) VALUES
+('BRW001', 'U001', 'B001', 'B001C1', DATE '2023-10-01', DATE '2023-10-15', DATE '2023-10-08', 'New', 'New'),
+('BRW002', 'U001', 'B005', 'B005C1', DATE '2023-10-02', DATE '2023-10-16', DATE '2023-10-09', 'New', 'New'),
+('BRW003', 'U002', 'B002', 'B002C1', DATE '2023-10-03', DATE '2023-10-17', DATE '2023-10-10', 'Damaged', 'Damaged'),
+('BRW004', 'U002', 'B003', 'B003C1', DATE '2023-10-04', DATE '2023-10-18', DATE '2023-10-11', 'Damaged', 'Damaged'),
+('BRW005', 'U003', 'B004', 'B004C1', DATE '2023-10-05', DATE '2023-10-19', DATE '2023-10-12', 'New', 'Damaged'),
+('BRW006', 'U003', 'B001', 'B001C2', DATE '2023-10-06', DATE '2023-10-20', DATE '2023-10-13', 'Damaged', 'Damaged'),
+('BRW007', 'U004', 'B002', 'B002C2', DATE '2023-10-07', DATE '2023-10-21', DATE '2023-10-14', 'New', 'New'),
+('BRW008', 'U004', 'B005', 'B005C2', DATE '2023-10-08', DATE '2023-10-22', DATE '2023-10-15', 'New', 'Damaged'),
+('BRW009', 'U005', 'B003', 'B003C2', DATE '2023-10-09', DATE '2023-10-23', DATE '2023-10-16', 'New', 'New'),
+('BRW010', 'U005', 'B004', 'B004C2', DATE '2023-10-10', DATE '2023-10-24', DATE '2023-10-17', 'Damaged', 'Damaged'),
+('BRW011', 'U006', 'B001', 'B001C3', DATE '2023-10-11', DATE '2023-10-25', DATE '2023-10-18', 'New', 'New'),
+('BRW012', 'U006', 'B002', 'B002C3', DATE '2023-10-12', DATE '2023-10-26', DATE '2023-10-19', 'New', 'New'),
+('BRW013', 'U007', 'B003', 'B003C3', DATE '2023-10-13', DATE '2023-10-27', DATE '2023-10-20', 'New', 'Damaged'),
+('BRW014', 'U007', 'B004', 'B004C3', DATE '2023-10-14', DATE '2023-10-28', DATE '2023-10-21', 'Damaged', 'Damaged'),
+('BRW015', 'U008', 'B005', 'B005C3', DATE '2023-10-15', DATE '2023-10-29', DATE '2023-10-22', 'New', 'New'),
+('BRW016', 'U008', 'B001', 'B001C4', DATE '2023-10-16', DATE '2023-10-30', DATE '2023-10-23', 'New', 'New'),
+('BRW017', 'U009', 'B002', 'B002C1', DATE '2023-10-17', DATE '2023-10-31', DATE '2023-10-24', 'Damaged', 'Damaged'),
+('BRW018', 'U009', 'B003', 'B003C4', DATE '2023-10-18', DATE '2023-11-01', DATE '2023-10-25', 'New', 'New'),
+('BRW019', 'U009', 'B004', 'B004C1', DATE '2023-10-19', DATE '2023-11-02', NULL, 'Damaged', NULL),
+('BRW020', 'U010', 'B005', 'B005C4', DATE '2023-10-20', DATE '2023-11-03', DATE '2023-10-27', 'New', 'New');
 
 -- Populate Book_Author
 INSERT INTO Book_Author (book_id, author_id) VALUES
@@ -632,9 +638,9 @@ INSERT INTO Book_Author (book_id, author_id) VALUES
 -- Populate Book_Course
 INSERT INTO Book_Course (book_id, course_id) VALUES
 ('B001', 'BUSM4185'), ('B002', 'COSC2429'), ('B003', 'OMGT2085'), ('B004', 'COMM2596'),
-('B005', 'BP070'), ('B006', 'COSC2440'), ('B007', 'ACCT2105'), ('B008', 'COMM2752'),
+('B005', 'COSC2440'), ('B006', 'COSC2440'), ('B007', 'ACCT2105'), ('B008', 'COMM2752'),
 ('B009', 'VART3626'), ('B010', 'MKTG1447'), ('B011', 'ISYS2109'), ('B012', 'EEET2600'),
-('B013', 'MKTG1420'), ('B014', 'COSC2532'), ('B015', 'LANG1318'), ('B016', 'PSYC101'),
+('B013', 'MKTG1420'), ('B014', 'COSC2532'), ('B015', 'LANG1318'), ('B016', 'MKTG1421'),
 ('B017', 'EEET2482'), ('B018', 'FOHO1024'), ('B019', 'MKTG1205'), ('B020', 'COSC2430'),
 ('B022', 'EEET2599'), ('B022', 'EEET2600'), ('B022', 'EEET2603'), ('B027', 'COSC2429'),
 ('B027', 'ISYS3414'), ('B027', 'COSC2440'), ('B028', 'EEET2601'), ('B028', 'EEET2599'),
@@ -650,13 +656,13 @@ INSERT INTO Book_Category (book_id, category_id) VALUES
 ('B017', 'CAT005'), ('B018', 'CAT018'), ('B019', 'CAT016'), ('B020', 'CAT006');
 
 
--- Populate Book_Category
+-- Populate Book_Major
 INSERT INTO Book_Major (book_id, major_id) VALUES
 ('B001', 'BP343'), ('B002', 'BP214'), ('B003', 'BP312'), ('B004', 'BP222'),
 ('B005', 'BP070'), ('B006', 'BH123'), ('B007', 'BP351'), ('B008', 'BP309'),
 ('B009', 'BP325'), ('B010', 'BP327'), ('B011', 'BP162'), ('B012', 'BH073'),
 ('B013', 'BP318'), ('B014', 'BP316'), ('B015', 'BP317'), ('B016', 'BP154'),
-('B017', 'BH120'), ('B018', 'BP199'), ('B019', 'BP343'), ('B020', 'BP214')
+('B017', 'BH120'), ('B018', 'BP199'), ('B019', 'BP343'), ('B020', 'BP214'),
 ('B021', 'BP312'), ('B022', 'BH123'), ('B023', 'BP070'), ('B024', 'BH123'),
 ('B025', 'BP351'), ('B026', 'BP309'), ('B027', 'BP162'), ('B028', 'BH073'),
-('B029', 'BP318'), ('B030', 'BP199'), ('B028', 'BH073'), ('B027', 'BH120');
+('B029', 'BP318'), ('B030', 'BP199'), ('B028', 'BH123'), ('B027', 'BH120');
