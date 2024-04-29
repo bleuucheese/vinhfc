@@ -1,4 +1,31 @@
 use vinht;
+DROP TABLE IF EXISTS Member_HardCopy;
+DROP TABLE IF EXISTS Member_Room;
+DROP TABLE IF EXISTS Member_Ebooks;
+DROP TABLE IF EXISTS Member_Course;
+DROP TABLE IF EXISTS Requests;
+DROP TABLE IF EXISTS Fine;
+DROP TABLE IF EXISTS Review;
+DROP TABLE IF EXISTS Hard_Copies;
+DROP TABLE IF EXISTS Ebooks;
+DROP TABLE IF EXISTS Book_Author;
+DROP TABLE IF EXISTS Book_Course;
+DROP TABLE IF EXISTS Book_Category;
+DROP TABLE IF EXISTS Book_Major;
+DROP TABLE IF EXISTS Room;
+DROP TABLE IF EXISTS Book;
+DROP TABLE IF EXISTS Item;
+DROP TABLE IF EXISTS Lib_Librarian;
+DROP TABLE IF EXISTS Lib_Admin;
+DROP TABLE IF EXISTS Lib_Member;
+DROP TABLE IF EXISTS Lib_User;
+DROP TABLE IF EXISTS Author;
+DROP TABLE IF EXISTS Location;
+DROP TABLE IF EXISTS Course;
+DROP TABLE IF EXISTS Category;
+DROP TABLE IF EXISTS Major;
+
+
 CREATE TABLE Major (
     major_id VARCHAR(15) PRIMARY KEY,
     school VARCHAR(50) CHECK (school IN ('SSET', 'TBS', 'SCD', 'SEUP')),
@@ -34,7 +61,7 @@ CREATE TABLE Lib_User (
 
 CREATE TABLE Lib_Member (
     user_id VARCHAR(15) PRIMARY KEY,
-    role VARCHAR(50) CHECK (role IN ('Student', 'Faculty')),
+    role VARCHAR(50) CHECK (role IN ('Student', 'Staff')),
     total_book_borrowed INT DEFAULT 0,
     total_fine_paid DECIMAL(10,2) DEFAULT 0.00,
     program_code VARCHAR(15),
@@ -42,7 +69,7 @@ CREATE TABLE Lib_Member (
     FOREIGN KEY (program_code) REFERENCES Major(major_id),
     CHECK (
         (role = 'Student' AND total_book_borrowed <= 10) OR
-        (role = 'Faculty' AND total_book_borrowed <= 20)
+        (role = 'Staff' AND total_book_borrowed <= 20)
     )
 );
 

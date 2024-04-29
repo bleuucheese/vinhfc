@@ -1,5 +1,65 @@
 --This is for Oracle syntax
 
+BEGIN
+  EXECUTE IMMEDIATE 'DROP TABLE Member_HardCopy';
+  EXECUTE IMMEDIATE 'DROP TABLE Member_Room';
+  EXECUTE IMMEDIATE 'DROP TABLE Member_Ebooks';
+  EXECUTE IMMEDIATE 'DROP TABLE Member_Course';
+  EXECUTE IMMEDIATE 'DROP TABLE Requests';
+  EXECUTE IMMEDIATE 'DROP TABLE Fine';
+  EXECUTE IMMEDIATE 'DROP TABLE Review';
+  EXECUTE IMMEDIATE 'DROP TABLE Hard_Copies';
+  EXECUTE IMMEDIATE 'DROP TABLE Ebooks';
+  EXECUTE IMMEDIATE 'DROP TABLE Book_Author';
+  EXECUTE IMMEDIATE 'DROP TABLE Book_Course';
+  EXECUTE IMMEDIATE 'DROP TABLE Book_Category';
+  EXECUTE IMMEDIATE 'DROP TABLE Book_Major';
+  EXECUTE IMMEDIATE 'DROP TABLE Room';
+  EXECUTE IMMEDIATE 'DROP TABLE Book';
+  EXECUTE IMMEDIATE 'DROP TABLE Item';
+  EXECUTE IMMEDIATE 'DROP TABLE Lib_Librarian';
+  EXECUTE IMMEDIATE 'DROP TABLE Lib_Admin';
+  EXECUTE IMMEDIATE 'DROP TABLE Lib_Member';
+  EXECUTE IMMEDIATE 'DROP TABLE Lib_User';
+  EXECUTE IMMEDIATE 'DROP TABLE Author';
+  EXECUTE IMMEDIATE 'DROP TABLE Location';
+  EXECUTE IMMEDIATE 'DROP TABLE Course';
+  EXECUTE IMMEDIATE 'DROP TABLE Category';
+  EXECUTE IMMEDIATE 'DROP TABLE Major';
+EXCEPTION
+  WHEN OTHERS THEN
+    DBMS_OUTPUT.PUT_LINE('Error encountered: ' || SQLCODE || ' - ' || SQLERRM);
+END;
+
+CREATE TABLE my_users(
+    id VARCHAR(15) PRIMARY KEY,
+    uname VARCHAR2(60),
+    log_in VARCHAR2(60) UNIQUE NOT NULL,
+    log_pas VARCHAR2(60) NOT NULL,
+    status VARCHAR2(1),
+    user_role VARCHAR2(10)
+);
+
+INSERT ALL
+  INTO my_users (id, uname, log_in, log_pas, status, user_role) VALUES ('U001', 'anh.lam', 'ahnlam', 'practical', 'Y', 'Student')
+  INTO my_users (id, uname, log_in, log_pas, status, user_role) VALUES ('U002', 'bao.ho', 'baoho', 'database', 'Y', 'Student')
+  INTO my_users (id, uname, log_in, log_pas, status, user_role) VALUES ('U003', 'johnathan.crellin', 'johncrel', 'concepts', 'Y', 'Staff')
+  INTO my_users (id, uname, log_in, log_pas, status, user_role) VALUES ('U004', 'duc.pham', 'duckieph', 'pdc', 'Y', 'Student')
+  INTO my_users (id, uname, log_in, log_pas, status, user_role) VALUES ('U005', 'evelyn.vo', 'evavo', 'sql', 'Y', 'Student')
+  INTO my_users (id, uname, log_in, log_pas, status, user_role) VALUES ('U006', 'joshua.hansen', 'xthejozh', 'oracle', 'Y', 'Staff')
+  INTO my_users (id, uname, log_in, log_pas, status, user_role) VALUES ('U007', 'giang.dinh', 'giangdinh', 'apex', 'Y', 'Student')
+  INTO my_users (id, uname, log_in, log_pas, status, user_role) VALUES ('U008', 'khai.luong', 'khailg', 'library', 'Y', 'Student')
+  INTO my_users (id, uname, log_in, log_pas, status, user_role) VALUES ('U009', 'vy.kieu', 'vykieu', 'system', 'Y', 'Student')
+  INTO my_users (id, uname, log_in, log_pas, status, user_role) VALUES ('U010', 'iris.nguyen', 'irizz', 'erd', 'Y', 'Student')
+  INTO my_users (id, uname, log_in, log_pas, status, user_role) VALUES ('L001', 'andrew.tran', 'andrius', 'relationalschema', 'Y', 'Librarian')
+  INTO my_users (id, uname, log_in, log_pas, status, user_role) VALUES ('L002', 'chi.dang', 'chidang', 'entity', 'Y', 'Librarian')
+  INTO my_users (id, uname, log_in, log_pas, status, user_role) VALUES ('L003', 'thu.le', 'thule', 'relation', 'Y', 'Librarian')
+  INTO my_users (id, uname, log_in, log_pas, status, user_role) VALUES ('A001', 'ha.trinh', 'akakddalk', 'schema', 'Y', 'Admin')
+  INTO my_users (id, uname, log_in, log_pas, status, user_role) VALUES ('A002', 'bach.nguyen', 'baches', 'hierarchy', 'Y', 'Admin')
+  INTO my_users (id, uname, log_in, log_pas, status, user_role) VALUES ('A003', 'vinh.truong', 'vinhfc', 'HD', 'Y', 'Admin')
+SELECT * FROM dual;
+
+
 CREATE TABLE Major (
     major_id VARCHAR(15) PRIMARY KEY,
     school VARCHAR(50) CHECK (school IN ('SSET', 'TBS', 'SCD', 'SEUP')),
@@ -412,10 +472,10 @@ SELECT * FROM dual;
 INSERT ALL
 INTO Lib_Member (user_id, role, total_book_borrowed, total_fine_paid, program_code) VALUES ('U001', 'Student', 0, 0.00, 'BP343')
 INTO Lib_Member (user_id, role, total_book_borrowed, total_fine_paid, program_code) VALUES ('U002', 'Student', 0, 0.00, 'BP214')
-INTO Lib_Member (user_id, role, total_book_borrowed, total_fine_paid, program_code) VALUES ('U003', 'Faculty', 0, 25.00, NULL)
+INTO Lib_Member (user_id, role, total_book_borrowed, total_fine_paid, program_code) VALUES ('U003', 'Staff', 0, 25.00, NULL)
 INTO Lib_Member (user_id, role, total_book_borrowed, total_fine_paid, program_code) VALUES ('U004', 'Student', 0, 25.00, 'BP312')
 INTO Lib_Member (user_id, role, total_book_borrowed, total_fine_paid, program_code) VALUES ('U005', 'Student', 0, 0.00, 'BP222')
-INTO Lib_Member (user_id, role, total_book_borrowed, total_fine_paid, program_code) VALUES ('U006', 'Faculty', 0, 0.00, NULL)
+INTO Lib_Member (user_id, role, total_book_borrowed, total_fine_paid, program_code) VALUES ('U006', 'Staff', 0, 0.00, NULL)
 INTO Lib_Member (user_id, role, total_book_borrowed, total_fine_paid, program_code) VALUES ('U007', 'Student', 0, 0.00, 'BP070')
 INTO Lib_Member (user_id, role, total_book_borrowed, total_fine_paid, program_code) VALUES ('U008', 'Student', 0, 0.00, 'BH123')
 INTO Lib_Member (user_id, role, total_book_borrowed, total_fine_paid, program_code) VALUES ('U009', 'Student', 1, 0.00, 'BP351')
@@ -649,36 +709,36 @@ SELECT * FROM dual;
 
 -- Populate Review table
 INSERT ALL
-INTO Review (review_id, rating, comment, reviewer, book) VALUES ('REV001', 5, 'Absolutely insightful with practical tips on navigating market trends.', 'U001', 'B001')
-INTO Review (review_id, rating, comment, reviewer, book) VALUES ('REV002', 3, 'Good book but some chapters are too theoretical.', 'U002', 'B001')
-INTO Review (review_id, rating, comment, reviewer, book) VALUES ('REV003', 4, 'Great read for anyone interested in business strategy.', 'U003', 'B001')
-INTO Review (review_id, rating, comment, reviewer, book) VALUES ('REV004', 5, 'Excellent introduction to game design fundamentals.', 'U004', 'B002')
-INTO Review (review_id, rating, comment, reviewer, book) VALUES ('REV005', 4, 'Very helpful for beginners in game development.', 'U005', 'B002')
-INTO Review (review_id, rating, comment, reviewer, book) VALUES ('REV006', 4, 'Covers the basics well but lacks advanced topics.', 'U006', 'B002')
-INTO Review (review_id, rating, comment, reviewer, book) VALUES ('REV007', 4, 'Comprehensive and up-to-date with modern practices.', 'U007', 'B003')
-INTO Review (review_id, rating, comment, reviewer, book) VALUES ('REV008', 2, 'Somewhat outdated in certain aspects of tourism management.', 'U008', 'B003')
-INTO Review (review_id, rating, comment, reviewer, book) VALUES ('REV009', 5, 'A must-read for hospitality and tourism management students.', 'U009', 'B003')
-INTO Review (review_id, rating, comment, reviewer, book) VALUES ('REV010', 5, 'Incredibly useful for improving communication skills.', 'U010', 'B004')
-INTO Review (review_id, rating, comment, reviewer, book) VALUES ('REV011', 3, 'Decent coverage of topics, but some parts were too basic.', 'U001', 'B004')
-INTO Review (review_id, rating, comment, reviewer, book) VALUES ('REV012', 4, 'Engaging content and practical advice.', 'U002', 'B004')
-INTO Review (review_id, rating, comment, reviewer, book) VALUES ('REV013', 5, 'Outstanding depth and detail on aviation topics.', 'U003', 'B005')
-INTO Review (review_id, rating, comment, reviewer, book) VALUES ('REV014', 5, 'The technical insights are remarkable.', 'U004', 'B005')
-INTO Review (review_id, rating, comment, reviewer, book) VALUES ('REV015', 4, 'Comprehensive but a little overwhelming for newbies.', 'U005', 'B005')
-INTO Review (review_id, rating, comment, reviewer, book) VALUES ('REV016', 4, 'Solid introduction to robotics.', 'U006', 'B006')
-INTO Review (review_id, rating, comment, reviewer, book) VALUES ('REV017', 4, 'Good hands-on examples and case studies.', 'U007', 'B006')
-INTO Review (review_id, rating, comment, reviewer, book) VALUES ('REV018', 3, 'Needs more advanced topics to be truly comprehensive.', 'U008', 'B006')
-INTO Review (review_id, rating, comment, reviewer, book) VALUES ('REV019', 5, 'Essential reading for anyone in finance.', 'U009', 'B007')
-INTO Review (review_id, rating, comment, reviewer, book) VALUES ('REV020', 5, 'Detailed and informative with excellent examples.', 'U010', 'B007')
-INTO Review (review_id, rating, comment, reviewer, book) VALUES ('REV021', 4, 'Great for understanding corporate accounting principles.', 'U001', 'B007')
-INTO Review (review_id, rating, comment, reviewer, book) VALUES ('REV022', 4, 'Very insightful into the changes in digital media.', 'U002', 'B008')
-INTO Review (review_id, rating, comment, reviewer, book) VALUES ('REV023', 3, 'Covers the basics well, but lacks depth in new media trends.', 'U003', 'B008')
-INTO Review (review_id, rating, comment, reviewer, book) VALUES ('REV024', 5, 'A must-have resource for digital media students.', 'U004', 'B008')
-INTO Review (review_id, rating, comment, reviewer, book) VALUES ('REV025', 5, 'Exceptionally detailed guide to film production.', 'U005', 'B009')
-INTO Review (review_id, rating, comment, reviewer, book) VALUES ('REV026', 4, 'Great practical advice, though aimed more at beginners.', 'U006', 'B009')
-INTO Review (review_id, rating, comment, reviewer, book) VALUES ('REV027', 3, 'Good overview but I expected more advanced techniques.', 'U007', 'B009')
-INTO Review (review_id, rating, comment, reviewer, book) VALUES ('REV028', 4, 'Innovative approaches to fashion design.', 'U008', 'B010')
-INTO Review (review_id, rating, comment, reviewer, book) VALUES ('REV029', 2, 'Somewhat disappointing with a lack of technical detail.', 'U009', 'B010')
-INTO Review (review_id, rating, comment, reviewer, book) VALUES ('REV030', 5, 'Inspiring and thought-provoking!', 'U010', 'B010')
+INTO Review (review_id, rating, comments, reviewer, book) VALUES ('REV001', 5, 'Absolutely insightful with practical tips on navigating market trends.', 'U001', 'B001')
+INTO Review (review_id, rating, comments, reviewer, book) VALUES ('REV002', 3, 'Good book but some chapters are too theoretical.', 'U002', 'B001')
+INTO Review (review_id, rating, comments, reviewer, book) VALUES ('REV003', 4, 'Great read for anyone interested in business strategy.', 'U003', 'B001')
+INTO Review (review_id, rating, comments, reviewer, book) VALUES ('REV004', 5, 'Excellent introduction to game design fundamentals.', 'U004', 'B002')
+INTO Review (review_id, rating, comments, reviewer, book) VALUES ('REV005', 4, 'Very helpful for beginners in game development.', 'U005', 'B002')
+INTO Review (review_id, rating, comments, reviewer, book) VALUES ('REV006', 4, 'Covers the basics well but lacks advanced topics.', 'U006', 'B002')
+INTO Review (review_id, rating, comments, reviewer, book) VALUES ('REV007', 4, 'Comprehensive and up-to-date with modern practices.', 'U007', 'B003')
+INTO Review (review_id, rating, comments, reviewer, book) VALUES ('REV008', 2, 'Somewhat outdated in certain aspects of tourism management.', 'U008', 'B003')
+INTO Review (review_id, rating, comments, reviewer, book) VALUES ('REV009', 5, 'A must-read for hospitality and tourism management students.', 'U009', 'B003')
+INTO Review (review_id, rating, comments, reviewer, book) VALUES ('REV010', 5, 'Incredibly useful for improving communication skills.', 'U010', 'B004')
+INTO Review (review_id, rating, comments, reviewer, book) VALUES ('REV011', 3, 'Decent coverage of topics, but some parts were too basic.', 'U001', 'B004')
+INTO Review (review_id, rating, comments, reviewer, book) VALUES ('REV012', 4, 'Engaging content and practical advice.', 'U002', 'B004')
+INTO Review (review_id, rating, comments, reviewer, book) VALUES ('REV013', 5, 'Outstanding depth and detail on aviation topics.', 'U003', 'B005')
+INTO Review (review_id, rating, comments, reviewer, book) VALUES ('REV014', 5, 'The technical insights are remarkable.', 'U004', 'B005')
+INTO Review (review_id, rating, comments, reviewer, book) VALUES ('REV015', 4, 'Comprehensive but a little overwhelming for newbies.', 'U005', 'B005')
+INTO Review (review_id, rating, comments, reviewer, book) VALUES ('REV016', 4, 'Solid introduction to robotics.', 'U006', 'B006')
+INTO Review (review_id, rating, comments, reviewer, book) VALUES ('REV017', 4, 'Good hands-on examples and case studies.', 'U007', 'B006')
+INTO Review (review_id, rating, comments, reviewer, book) VALUES ('REV018', 3, 'Needs more advanced topics to be truly comprehensive.', 'U008', 'B006')
+INTO Review (review_id, rating, comments, reviewer, book) VALUES ('REV019', 5, 'Essential reading for anyone in finance.', 'U009', 'B007')
+INTO Review (review_id, rating, comments, reviewer, book) VALUES ('REV020', 5, 'Detailed and informative with excellent examples.', 'U010', 'B007')
+INTO Review (review_id, rating, comments, reviewer, book) VALUES ('REV021', 4, 'Great for understanding corporate accounting principles.', 'U001', 'B007')
+INTO Review (review_id, rating, comments, reviewer, book) VALUES ('REV022', 4, 'Very insightful into the changes in digital media.', 'U002', 'B008')
+INTO Review (review_id, rating, comments, reviewer, book) VALUES ('REV023', 3, 'Covers the basics well, but lacks depth in new media trends.', 'U003', 'B008')
+INTO Review (review_id, rating, comments, reviewer, book) VALUES ('REV024', 5, 'A must-have resource for digital media students.', 'U004', 'B008')
+INTO Review (review_id, rating, comments, reviewer, book) VALUES ('REV025', 5, 'Exceptionally detailed guide to film production.', 'U005', 'B009')
+INTO Review (review_id, rating, comments, reviewer, book) VALUES ('REV026', 4, 'Great practical advice, though aimed more at beginners.', 'U006', 'B009')
+INTO Review (review_id, rating, comments, reviewer, book) VALUES ('REV027', 3, 'Good overview but I expected more advanced techniques.', 'U007', 'B009')
+INTO Review (review_id, rating, comments, reviewer, book) VALUES ('REV028', 4, 'Innovative approaches to fashion design.', 'U008', 'B010')
+INTO Review (review_id, rating, comments, reviewer, book) VALUES ('REV029', 2, 'Somewhat disappointing with a lack of technical detail.', 'U009', 'B010')
+INTO Review (review_id, rating, comments, reviewer, book) VALUES ('REV030', 5, 'Inspiring and thought-provoking!', 'U010', 'B010')
 SELECT * FROM dual;
 
 

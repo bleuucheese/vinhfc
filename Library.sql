@@ -187,10 +187,10 @@ INSERT INTO Lib_User (user_id, username, f_name, l_name, email, pwd) VALUES
 INSERT INTO Lib_Member (user_id, role, total_book_borrowed, total_fine_paid, program_code) VALUES
 ('U001', 'Student', 0, 0.00, 'BP343'),
 ('U002', 'Student', 0, 0.00, 'BP214'),
-('U003', 'Faculty', 0, 25.00, NULL),
+('U003', 'Staff', 0, 25.00, NULL),
 ('U004', 'Student', 0, 25.00, 'BP312'),
 ('U005', 'Student', 0, 0.00, 'BP222'),
-('U006', 'Faculty', 0, 0.00, NULL),
+('U006', 'Staff', 0, 0.00, NULL),
 ('U007', 'Student', 0, 0.00, 'BP070'),
 ('U008', 'Student', 0, 0.00, 'BH123'),
 ('U009', 'Student', 1, 0.00, 'BP351'),
@@ -420,7 +420,7 @@ INSERT INTO Author (author_id, f_name, l_name) VALUES
 
 
 -- Insert Review
-INSERT INTO Review (review_id, rating, comment, reviewer, book) VALUES
+INSERT INTO Review (review_id, rating, comments, reviewer, book) VALUES
 ('REV001', 5, 'Absolutely insightful with practical tips on navigating market trends.', 'U001', 'B001'),
 ('REV002', 3, 'Good book but some chapters are too theoretical.', 'U002', 'B001'),
 ('REV003', 4, 'Great read for anyone interested in business strategy.', 'U003', 'B001'),
