@@ -31,34 +31,6 @@ EXCEPTION
     DBMS_OUTPUT.PUT_LINE('Error encountered: ' || SQLCODE || ' - ' || SQLERRM);
 END;
 
-CREATE TABLE my_users(
-    id VARCHAR(15) PRIMARY KEY,
-    uname VARCHAR2(60),
-    log_in VARCHAR2(60) UNIQUE NOT NULL,
-    log_pas VARCHAR2(60) NOT NULL,
-    status VARCHAR2(1),
-    user_role VARCHAR2(10)
-);
-
-INSERT ALL
-  INTO my_users (id, uname, log_in, log_pas, status, user_role) VALUES ('U001', 'anh.lam', 'ahnlam', 'practical', 'Y', 'Student')
-  INTO my_users (id, uname, log_in, log_pas, status, user_role) VALUES ('U002', 'bao.ho', 'baoho', 'database', 'Y', 'Student')
-  INTO my_users (id, uname, log_in, log_pas, status, user_role) VALUES ('U003', 'johnathan.crellin', 'johncrel', 'concepts', 'Y', 'Staff')
-  INTO my_users (id, uname, log_in, log_pas, status, user_role) VALUES ('U004', 'duc.pham', 'duckieph', 'pdc', 'Y', 'Student')
-  INTO my_users (id, uname, log_in, log_pas, status, user_role) VALUES ('U005', 'evelyn.vo', 'evavo', 'sql', 'Y', 'Student')
-  INTO my_users (id, uname, log_in, log_pas, status, user_role) VALUES ('U006', 'joshua.hansen', 'xthejozh', 'oracle', 'Y', 'Staff')
-  INTO my_users (id, uname, log_in, log_pas, status, user_role) VALUES ('U007', 'giang.dinh', 'giangdinh', 'apex', 'Y', 'Student')
-  INTO my_users (id, uname, log_in, log_pas, status, user_role) VALUES ('U008', 'khai.luong', 'khailg', 'library', 'Y', 'Student')
-  INTO my_users (id, uname, log_in, log_pas, status, user_role) VALUES ('U009', 'vy.kieu', 'vykieu', 'system', 'Y', 'Student')
-  INTO my_users (id, uname, log_in, log_pas, status, user_role) VALUES ('U010', 'iris.nguyen', 'irizz', 'erd', 'Y', 'Student')
-  INTO my_users (id, uname, log_in, log_pas, status, user_role) VALUES ('L001', 'andrew.tran', 'andrius', 'relationalschema', 'Y', 'Librarian')
-  INTO my_users (id, uname, log_in, log_pas, status, user_role) VALUES ('L002', 'chi.dang', 'chidang', 'entity', 'Y', 'Librarian')
-  INTO my_users (id, uname, log_in, log_pas, status, user_role) VALUES ('L003', 'thu.le', 'thule', 'relation', 'Y', 'Librarian')
-  INTO my_users (id, uname, log_in, log_pas, status, user_role) VALUES ('A001', 'ha.trinh', 'akakddalk', 'schema', 'Y', 'Admin')
-  INTO my_users (id, uname, log_in, log_pas, status, user_role) VALUES ('A002', 'bach.nguyen', 'baches', 'hierarchy', 'Y', 'Admin')
-  INTO my_users (id, uname, log_in, log_pas, status, user_role) VALUES ('A003', 'vinh.truong', 'vinhfc', 'HD', 'Y', 'Admin')
-SELECT * FROM dual;
-
 
 CREATE TABLE Major (
     major_id VARCHAR(15) PRIMARY KEY,
@@ -91,21 +63,17 @@ CREATE TABLE Lib_User (
     l_name VARCHAR2(100),
     email VARCHAR(100) CONSTRAINT email_unique UNIQUE NOT NULL,
     pwd VARCHAR2(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    user_type VARCHAR(50) CHECK (user_type IN ('Student', 'Staff', 'Librarian', 'Admin'))
 );
 
 CREATE TABLE Lib_Member (
     user_id VARCHAR(15) PRIMARY KEY,
-    role VARCHAR(50) CHECK (role IN ('Student', 'Staff')),
     total_book_borrowed INT DEFAULT 0,
     total_fine_paid DECIMAL(10,2) DEFAULT 0.00,
     program_code VARCHAR(15),
     FOREIGN KEY (user_id) REFERENCES Lib_User(user_id),
-    FOREIGN KEY (program_code) REFERENCES Major(major_id),
-    CHECK (
-        (role = 'Student' AND total_book_borrowed <= 10) OR
-        (role = 'Staff' AND total_book_borrowed <= 20)
-    )
+    FOREIGN KEY (program_code) REFERENCES Major(major_id)
 );
 
 CREATE TABLE Lib_Admin (
@@ -226,7 +194,7 @@ CREATE TABLE Member_Room (
     booking_id VARCHAR(15) PRIMARY KEY,
     member_id VARCHAR(15),
     room_id VARCHAR(15),
-    reservation_date DATE,
+    reservation_date DATE DEFAULT SYSDATE,
     start_date TIMESTAMP,
     end_date TIMESTAMP,
     FOREIGN KEY (member_id) REFERENCES Lib_Member(user_id),
@@ -239,7 +207,7 @@ CREATE TABLE Member_HardCopy (
     member VARCHAR(15),
     book VARCHAR(15),
     bcopy VARCHAR(15),
-    issue_date DATE,
+    issue_date DATE DEFAULT SYSDATE,
     due_date DATE,
     return_date DATE,
     checkin_condition VARCHAR(255) CHECK (checkin_condition IN ('New', 'Damaged')),  -- Only allows 'New' or 'Damaged'
@@ -450,50 +418,50 @@ SELECT * FROM dual;
 
 -- Populate Lib_User table
 INSERT ALL
-INTO Lib_User (user_id, username, f_name, l_name, email, pwd) VALUES ('U001', 'anh.lam', 'Anh', 'Lam', 'lamtramanh@gmail.com', 'practical')
-INTO Lib_User (user_id, username, f_name, l_name, email, pwd) VALUES ('U002', 'bao.ho', 'Bao', 'Ho', 'honguyenbao@gmail.com', 'database')
-INTO Lib_User (user_id, username, f_name, l_name, email, pwd) VALUES ('U003', 'johnathan.crellin', 'Johnathan', 'Crellin', 'johncrel@gmail.com', 'concepts')
-INTO Lib_User (user_id, username, f_name, l_name, email, pwd) VALUES ('U004', 'duc.pham', 'Duc', 'Pham', 'phamvietduc@gmail.com', 'pdc')
-INTO Lib_User (user_id, username, f_name, l_name, email, pwd) VALUES ('U005', 'evelyn.vo', 'Evelyn', 'Vo', 'voeva@gmail.com', 'sql')
-INTO Lib_User (user_id, username, f_name, l_name, email, pwd) VALUES ('U006', 'joshua.hansen', 'Joshua', 'Hansen', 'xthejosh@gmail.com', 'oracle')
-INTO Lib_User (user_id, username, f_name, l_name, email, pwd) VALUES ('U007', 'giang.dinh', 'Giang', 'Dinh', 'dinhquynhgiang@gmail.com', 'apex')
-INTO Lib_User (user_id, username, f_name, l_name, email, pwd) VALUES ('U008', 'khai.luong', 'Khai', 'Luong', 'luongminhkhai@gmail.com', 'library')
-INTO Lib_User (user_id, username, f_name, l_name, email, pwd) VALUES ('U009', 'vy.kieu', 'Vy', 'Kieu', 'kieukhanhvy@gmail.com', 'system')
-INTO Lib_User (user_id, username, f_name, l_name, email, pwd) VALUES ('U010', 'iris.nguyen', 'Iris', 'Nguyen', 'ngmaihuong@gmail.com', 'erd')
-INTO Lib_User (user_id, username, f_name, l_name, email, pwd) VALUES ('L001', 'andrew.tran', 'Andrew', 'Tran', 'litvandrius@gmail.com', 'relationalschema')
-INTO Lib_User (user_id, username, f_name, l_name, email, pwd) VALUES ('L002', 'chi.dang', 'Chi', 'Dang', 'dangtungchi@gmail.com', 'entity')
-INTO Lib_User (user_id, username, f_name, l_name, email, pwd) VALUES ('L003', 'thu.le', 'Thu', 'Le', 'lehathu@gmail.com', 'relation')
-INTO Lib_User (user_id, username, f_name, l_name, email, pwd) VALUES ('A001', 'ha.trinh', 'Ha', 'Trinh', 'fuhgetmenut@gmail.com', 'schema')
-INTO Lib_User (user_id, username, f_name, l_name, email, pwd) VALUES ('A002', 'bach.nguyen', 'Bach', 'Nguyen', 'bachesng@gmail.com', 'hierachy')
-INTO Lib_User (user_id, username, f_name, l_name, email, pwd) VALUES ('A003', 'vinh.truong', 'Vinh', 'Truong', 'trngxuanvinh@gmail.com', 'HD')
+INTO Lib_User (user_id, username, f_name, l_name, email, pwd, user_type) VALUES ('U001', 'anh.lam', 'Anh', 'Lam', 'ltranh@gmail.com', '123', 'Student')
+INTO Lib_User (user_id, username, f_name, l_name, email, pwd, user_type) VALUES ('U002', 'bao.ho', 'Bao', 'Ho', 'hongpbao@gmail.com', '123', 'Student')
+INTO Lib_User (user_id, username, f_name, l_name, email, pwd, user_type) VALUES ('U003', 'johnathan.crellin', 'Johnathan', 'Crellin', 'johncrel@gmail.com', '123', 'Staff')
+INTO Lib_User (user_id, username, f_name, l_name, email, pwd, user_type) VALUES ('U004', 'duc.pham', 'Duc', 'Pham', 'phamvietduc@gmail.com', '123', 'Student')
+INTO Lib_User (user_id, username, f_name, l_name, email, pwd, user_type) VALUES ('U005', 'evelyn.vo', 'Evelyn', 'Vo', 'voeva@gmail.com', '123', 'Student')
+INTO Lib_User (user_id, username, f_name, l_name, email, pwd, user_type) VALUES ('U006', 'joshua.hansen', 'Joshua', 'Hansen', 'xthejosh@gmail.com', '123', 'Staff')
+INTO Lib_User (user_id, username, f_name, l_name, email, pwd, user_type) VALUES ('U007', 'giang.dinh', 'Giang', 'Dinh', 'dinhqgiang@gmail.com', '123', 'Student')
+INTO Lib_User (user_id, username, f_name, l_name, email, pwd, user_type) VALUES ('U008', 'khai.luong', 'Khai', 'Luong', 'luongminhkhai@gmail.com', '123', 'Student')
+INTO Lib_User (user_id, username, f_name, l_name, email, pwd, user_type) VALUES ('U009', 'vy.kieu', 'Vy', 'Kieu', 'kieukhanhvy@gmail.com', '123', 'Student')
+INTO Lib_User (user_id, username, f_name, l_name, email, pwd, user_type) VALUES ('U010', 'iris.nguyen', 'Iris', 'Nguyen', 'ngmaihuong@gmail.com', '123', 'Student')
+INTO Lib_User (user_id, username, f_name, l_name, email, pwd, user_type) VALUES ('U011', 'andrew.tran', 'Andrew', 'Tran', 'litvandrius@gmail.com', '123', 'Librarian')
+INTO Lib_User (user_id, username, f_name, l_name, email, pwd, user_type) VALUES ('U012', 'chi.dang', 'Chi', 'Dang', 'tungchi@gmail.com', '123', 'Librarian')
+INTO Lib_User (user_id, username, f_name, l_name, email, pwd, user_type) VALUES ('U013', 'thu.le', 'Thu', 'Le', 'lehathu@gmail.com', '123', 'Librarian')
+INTO Lib_User (user_id, username, f_name, l_name, email, pwd, user_type) VALUES ('U014', 'ha.trinh', 'Ha', 'Trinh', 'fuhgetmenut@gmail.com', 'pdc', 'Admin')
+INTO Lib_User (user_id, username, f_name, l_name, email, pwd, user_type) VALUES ('U015', 'bach.nguyen', 'Bach', 'Nguyen', 'bachesng@gmail.com', 'team7', 'Admin')
+INTO Lib_User (user_id, username, f_name, l_name, email, pwd, user_type) VALUES ('U016', 'vinh.truong', 'Vinh', 'Truong', 'trngxuanvinh@gmail.com', 'HD', 'Admin')
 SELECT * FROM dual;
 
 -- Populate Lib_Member table
 INSERT ALL
-INTO Lib_Member (user_id, role, total_book_borrowed, total_fine_paid, program_code) VALUES ('U001', 'Student', 0, 0.00, 'BP343')
-INTO Lib_Member (user_id, role, total_book_borrowed, total_fine_paid, program_code) VALUES ('U002', 'Student', 0, 0.00, 'BP214')
-INTO Lib_Member (user_id, role, total_book_borrowed, total_fine_paid, program_code) VALUES ('U003', 'Staff', 0, 25.00, NULL)
-INTO Lib_Member (user_id, role, total_book_borrowed, total_fine_paid, program_code) VALUES ('U004', 'Student', 0, 25.00, 'BP312')
-INTO Lib_Member (user_id, role, total_book_borrowed, total_fine_paid, program_code) VALUES ('U005', 'Student', 0, 0.00, 'BP222')
-INTO Lib_Member (user_id, role, total_book_borrowed, total_fine_paid, program_code) VALUES ('U006', 'Staff', 0, 0.00, NULL)
-INTO Lib_Member (user_id, role, total_book_borrowed, total_fine_paid, program_code) VALUES ('U007', 'Student', 0, 0.00, 'BP070')
-INTO Lib_Member (user_id, role, total_book_borrowed, total_fine_paid, program_code) VALUES ('U008', 'Student', 0, 0.00, 'BH123')
-INTO Lib_Member (user_id, role, total_book_borrowed, total_fine_paid, program_code) VALUES ('U009', 'Student', 1, 0.00, 'BP351')
-INTO Lib_Member (user_id, role, total_book_borrowed, total_fine_paid, program_code) VALUES ('U010', 'Student', 0, 0.00, 'BP309')
+INTO Lib_Member (user_id, total_book_borrowed, total_fine_paid, program_code) VALUES ('U001', 0, 0.00, 'BP343')
+INTO Lib_Member (user_id, total_book_borrowed, total_fine_paid, program_code) VALUES ('U002', 0, 0.00, 'BP214')
+INTO Lib_Member (user_id, total_book_borrowed, total_fine_paid, program_code) VALUES ('U003', 0, 25.00, NULL)
+INTO Lib_Member (user_id, total_book_borrowed, total_fine_paid, program_code) VALUES ('U004', 0, 25.00, 'BP312')
+INTO Lib_Member (user_id, total_book_borrowed, total_fine_paid, program_code) VALUES ('U005', 0, 0.00, 'BP222')
+INTO Lib_Member (user_id, total_book_borrowed, total_fine_paid, program_code) VALUES ('U006', 0, 0.00, NULL)
+INTO Lib_Member (user_id, total_book_borrowed, total_fine_paid, program_code) VALUES ('U007', 0, 0.00, 'BP070')
+INTO Lib_Member (user_id, total_book_borrowed, total_fine_paid, program_code) VALUES ('U008', 0, 0.00, 'BH123')
+INTO Lib_Member (user_id, total_book_borrowed, total_fine_paid, program_code) VALUES ('U009', 1, 0.00, 'BP351')
+INTO Lib_Member (user_id, total_book_borrowed, total_fine_paid, program_code) VALUES ('U010', 0, 0.00, 'BP309')
 SELECT * FROM dual;
 
 -- Populate Lib_Admin table
 INSERT ALL
-INTO Lib_Admin (user_id) VALUES ('A001')
-INTO Lib_Admin (user_id) VALUES ('A002')
-INTO Lib_Admin (user_id) VALUES ('A003')
+INTO Lib_Admin (user_id) VALUES ('U014')
+INTO Lib_Admin (user_id) VALUES ('U015')
+INTO Lib_Admin (user_id) VALUES ('U016')
 SELECT * FROM dual;
 
 -- Populate Lib_Librarian table
 INSERT ALL
-INTO Lib_Librarian (user_id) VALUES ('L001')
-INTO Lib_Librarian (user_id) VALUES ('L002')
-INTO Lib_Librarian (user_id) VALUES ('L003')
+INTO Lib_Librarian (user_id) VALUES ('U011')
+INTO Lib_Librarian (user_id) VALUES ('U012')
+INTO Lib_Librarian (user_id) VALUES ('U013')
 SELECT * FROM dual;
 
 -- Populate Item table
@@ -753,26 +721,26 @@ SELECT * FROM dual;
 
 -- Populate Requests (created_at)
 INSERT ALL
-INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ001', 'Book Reservation', 'Request to reserve "Business Dynamics" for upcoming coursework.', 'Pending', 'U001', 'L001')
-INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ002', 'Renewal', 'Request to renew "Principles of Game Design" for another month.', 'Ongoing', 'U002', 'L001')
-INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ003', 'Book Purchase', 'Suggest purchasing more resources on modern tourism management.', 'Resolved', 'U003', 'L002')
-INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ004', 'Renewal', 'Need an extension on "Effective Communication".', 'Pending', 'U004', 'L003')
-INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ005', 'Resource Inquiry', 'Is "Aviation Studies" available for borrowing this week?', 'Resolved', 'U005', 'L002')
-INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ006', 'Technical Support', 'Need help accessing online journals on robotics fundamentals.', 'Ongoing', 'U006', 'L001')
-INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ007', 'Late Return', 'Requesting forgiveness for late return due to personal reasons.', 'Pending', 'U007', 'L003')
-INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ008', 'Reservation', 'Reserve the meeting room for study group discussion next Wednesday.', 'Pending', 'U008', 'L002')
-INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ009', 'Book Suggestion', 'Can the library consider acquiring books on digital marketing insights?', 'Resolved', 'U009', 'L001')
-INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ010', 'Renewal', 'Request to renew "Foundations of Design" for another term.', 'Ongoing', 'U010', 'L003')
-INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ011', 'Book Reservation', 'Request to reserve "Psychological Perspectives" for class.', 'Pending', 'U001', 'L002')
-INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ012', 'Resource Inquiry', 'Is there a newer edition of "Software Engineering Today" available?', 'Pending', 'U002', 'L001')
-INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ013', 'Help Request', 'Need guidance on using the librarys database to find specific research papers.', 'Resolved', 'U003', 'L003')
-INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ014', 'Renewal', 'I would like to renew "Advanced Business Strategies".', 'Ongoing', 'U004', 'L002')
-INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ015', 'Technical Support', 'Having trouble logging into the digital library.', 'Pending', 'U005', 'L001')
-INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ016', 'Room Booking', 'Would like to book a study room for final year project work.', 'Resolved', 'U006', 'L003')
-INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ017', 'Book Reservation', 'Request to reserve "Information Security" for next semester.', 'Pending', 'U007', 'L002')
-INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ018', 'Renewal', 'Requesting extension for "Circuit Design" due to project delay.', 'Ongoing', 'U008', 'L001')
-INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ019', 'Resource Inquiry', 'Are there any additional materials on social media marketing?', 'Pending', 'U009', 'L003')
-INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ020', 'Renewal', 'Need to extend "Therapeutic Diets" borrowing period for ongoing research.', 'Resolved', 'U010', 'L002')
+INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ001', 'Book Reservation', 'Request to reserve "Business Dynamics" for upcoming coursework.', 'Pending', 'U001', 'U011')
+INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ002', 'Renewal', 'Request to renew "Principles of Game Design" for another month.', 'Ongoing', 'U002', 'U011')
+INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ003', 'Book Purchase', 'Suggest purchasing more resources on modern tourism management.', 'Resolved', 'U003', 'U012')
+INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ004', 'Renewal', 'Need an extension on "Effective Communication".', 'Pending', 'U004', 'U013')
+INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ005', 'Resource Inquiry', 'Is "Aviation Studies" available for borrowing this week?', 'Resolved', 'U005', 'U012')
+INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ006', 'Technical Support', 'Need help accessing online journals on robotics fundamentals.', 'Ongoing', 'U006', 'U011')
+INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ007', 'Late Return', 'Requesting forgiveness for late return due to personal reasons.', 'Pending', 'U007', 'U013')
+INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ008', 'Reservation', 'Reserve the meeting room for study group discussion next Wednesday.', 'Pending', 'U008', 'U012')
+INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ009', 'Book Suggestion', 'Can the library consider acquiring books on digital marketing insights?', 'Resolved', 'U009', 'U011')
+INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ010', 'Renewal', 'Request to renew "Foundations of Design" for another term.', 'Ongoing', 'U010', 'U013')
+INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ011', 'Book Reservation', 'Request to reserve "Psychological Perspectives" for class.', 'Pending', 'U001', 'U012')
+INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ012', 'Resource Inquiry', 'Is there a newer edition of "Software Engineering Today" available?', 'Pending', 'U002', 'U011')
+INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ013', 'Help Request', 'Need guidance on using the librarys database to find specific research papers.', 'Resolved', 'U003', 'U013')
+INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ014', 'Renewal', 'I would like to renew "Advanced Business Strategies".', 'Ongoing', 'U004', 'U012')
+INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ015', 'Technical Support', 'Having trouble logging into the digital library.', 'Pending', 'U005', 'U011')
+INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ016', 'Room Booking', 'Would like to book a study room for final year project work.', 'Resolved', 'U006', 'U012')
+INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ017', 'Book Reservation', 'Request to reserve "Information Security" for next semester.', 'Pending', 'U007', 'U012')
+INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ018', 'Renewal', 'Requesting extension for "Circuit Design" due to project delay.', 'Ongoing', 'U008', 'U011')
+INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ019', 'Resource Inquiry', 'Are there any additional materials on social media marketing?', 'Pending', 'U009', 'U013')
+INTO Requests (request_id, type, message, status, sender, receiver) VALUES ('REQ020', 'Renewal', 'Need to extend "Therapeutic Diets" borrowing period for ongoing research.', 'Resolved', 'U010', 'U012')
 SELECT * FROM dual;
 
 

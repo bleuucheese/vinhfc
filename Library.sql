@@ -166,48 +166,48 @@ INSERT INTO Location (location_id, campus, floor, shelf_no, line_no) VALUES
 
 -- Populate Lib_User
 INSERT INTO Lib_User (user_id, username, f_name, l_name, email, pwd) VALUES
-('U001', 'anh.lam', 'Anh', 'Lam', 'lamtramanh@gmail.com', 'practical'),
-('U002', 'bao.ho', 'Bao', 'Ho', 'honguyenbao@gmail.com', 'database'),
-('U003', 'johnathan.crellin', 'Johnathan', 'Crellin', 'johncrel@gmail.com', 'concepts'),
-('U004', 'duc.pham', 'Duc', 'Pham', 'phamvietduc@gmail.com', 'pdc'),
-('U005', 'evelyn.vo', 'Evelyn', 'Vo', 'voeva@gmail.com', 'sql'),
-('U006', 'joshua.hansen', 'Joshua', 'Hansen', 'xthejosh@gmail.com', 'oracle'),
-('U007', 'giang.dinh', 'Giang', 'Dinh', 'dinhquynhgiang@gmail.com', 'apex'),
-('U008', 'khai.luong', 'Khai', 'Luong', 'luongminhkhai@gmail.com', 'library'),
-('U009', 'vy.kieu', 'Vy', 'Kieu', 'kieukhanhvy@gmail.com', 'system'),
-('U010', 'iris.nguyen', 'Iris', 'Nguyen', 'ngmaihuong@gmail.com', 'erd'),
-('L001', 'andrew.tran', 'Andrew', 'Tran', 'litvandrius@gmail.com', 'relationalschema'),
-('L002', 'chi.dang', 'Chi', 'Dang', 'dangtungchi@gmail.com', 'entity'),
-('L003', 'thu.le', 'Thu', 'Le', 'lehathu@gmail.com', 'relation'),
-('A001', 'ha.trinh', 'Ha', 'Trinh', 'fuhgetmenut@gmail.com', 'schema'),
-('A002', 'bach.nguyen', 'Bach', 'Nguyen', 'bachesng@gmail.com', 'hierachy'),
-('A003', 'vinh.truong', 'Vinh', 'Truong', 'trngxuanvinh@gmail.com', 'HD');
+('U001', 'anh.lam', 'Anh', 'Lam', 'ltranh@gmail.com', '123', 'Student'),
+('U002', 'bao.ho', 'Bao', 'Ho', 'hongpbao@gmail.com', '123', 'Student'),
+('U003', 'johnathan.crellin', 'Johnathan', 'Crellin', 'johncrel@gmail.com', '123', 'Staff'),
+('U004', 'duc.pham', 'Duc', 'Pham', 'phamvietduc@gmail.com', '123', 'Student'),
+('U005', 'evelyn.vo', 'Evelyn', 'Vo', 'voeva@gmail.com', '123', 'Student'),
+('U006', 'joshua.hansen', 'Joshua', 'Hansen', 'xthejosh@gmail.com', '123', 'Staff'),
+('U007', 'giang.dinh', 'Giang', 'Dinh', 'dinhqgiang@gmail.com', '123', 'Student'),
+('U008', 'khai.luong', 'Khai', 'Luong', 'luongminhkhai@gmail.com', '123', 'Student'),
+('U009', 'vy.kieu', 'Vy', 'Kieu', 'kieukhanhvy@gmail.com', '123', 'Student'),
+('U010', 'iris.nguyen', 'Iris', 'Nguyen', 'ngmaihuong@gmail.com', '123', 'Student'),
+('U011', 'andrew.tran', 'Andrew', 'Tran', 'litvandrius@gmail.com', '123', 'Librarian'),
+('U012', 'chi.dang', 'Chi', 'Dang', 'tungchi@gmail.com', '123', 'Librarian'),
+('U013', 'thu.le', 'Thu', 'Le', 'lehathu@gmail.com', '123', 'Librarian'),
+('U014', 'ha.trinh', 'Ha', 'Trinh', 'fuhgetmenut@gmail.com', 'pdc', 'Admin'),
+('U015', 'bach.nguyen', 'Bach', 'Nguyen', 'bachesng@gmail.com', 'team7', 'Admin'),
+('U016', 'vinh.truong', 'Vinh', 'Truong', 'trngxuanvinh@gmail.com', 'HD', 'Admin');
 
 -- Populate Lib_Member
 INSERT INTO Lib_Member (user_id, role, total_book_borrowed, total_fine_paid, program_code) VALUES
-('U001', 'Student', 0, 0.00, 'BP343'),
-('U002', 'Student', 0, 0.00, 'BP214'),
-('U003', 'Staff', 0, 25.00, NULL),
-('U004', 'Student', 0, 25.00, 'BP312'),
-('U005', 'Student', 0, 0.00, 'BP222'),
-('U006', 'Staff', 0, 0.00, NULL),
-('U007', 'Student', 0, 0.00, 'BP070'),
-('U008', 'Student', 0, 0.00, 'BH123'),
-('U009', 'Student', 1, 0.00, 'BP351'),
-('U010', 'Student', 0, 0.00, 'BP309');
+('U001', 0, 0.00, 'BP343'),
+('U002', 0, 0.00, 'BP214'),
+('U003', 0, 25.00, NULL),
+('U004', 0, 25.00, 'BP312'),
+('U005', 0, 0.00, 'BP222'),
+('U006', 0, 0.00, NULL),
+('U007', 0, 0.00, 'BP070'),
+('U008', 0, 0.00, 'BH123'),
+('U009', 1, 0.00, 'BP351'),
+('U010', 0, 0.00, 'BP309');
 
 -- Populate Lib_Admin
 INSERT INTO Lib_Admin (user_id) VALUES
-('A001'),
-('A002'),
-('A003');
+('U014'),
+('U015'),
+('U016');
 
 
 -- Populate Lib_Librarian
 INSERT INTO Lib_Librarian (user_id) VALUES
-('L001'),
-('L002'),
-('L003');
+('U011'),
+('U012'),
+('U013');
 
 
 -- Populate Item 
@@ -465,26 +465,26 @@ INSERT INTO Fine (fine_id, amount, reason, status, incurred_date, due_date, paid
 
 -------- Populate Requests (created_at) 
 INSERT INTO Requests (request_id, type, message, status, sender, receiver) VALUES
-('REQ001', 'Book Reservation', 'Request to reserve "Business Dynamics" for upcoming coursework.', 'Pending', 'U001', 'L001'),
-('REQ002', 'Renewal', 'Request to renew "Principles of Game Design" for another month.', 'Ongoing', 'U002', 'L001'),
-('REQ003', 'Book Purchase', 'Suggest purchasing more resources on modern tourism management.', 'Resolved', 'U003', 'L002'),
-('REQ004', 'Renewal', 'Need an extension on "Effective Communication".', 'Pending', 'U004', 'L003'),
-('REQ005', 'Resource Inquiry', 'Is "Aviation Studies" available for borrowing this week?', 'Resolved', 'U005', 'L002'),
-('REQ006', 'Technical Support', 'Need help accessing online journals on robotics fundamentals.', 'Ongoing', 'U006', 'L001'),
-('REQ007', 'Late Return', 'Requesting forgiveness for late return due to personal reasons.', 'Pending', 'U007', 'L003'),
-('REQ008', 'Reservation', 'Reserve the meeting room for study group discussion next Wednesday.', 'Pending', 'U008', 'L002'),
-('REQ009', 'Book Suggestion', 'Can the library consider acquiring books on digital marketing insights?', 'Resolved', 'U009', 'L001'),
-('REQ010', 'Renewal', 'Request to renew "Foundations of Design" for another term.', 'Ongoing', 'U010', 'L003'),
-('REQ011', 'Book Reservation', 'Request to reserve "Psychological Perspectives" for class.', 'Pending', 'U001', 'L002'),
-('REQ012', 'Resource Inquiry', 'Is there a newer edition of "Software Engineering Today" available?', 'Pending', 'U002', 'L001'),
-('REQ013', 'Help Request', 'Need guidance on using the librarys database to find specific research papers.', 'Resolved', 'U003', 'L003'),
-('REQ014', 'Renewal', 'I would like to renew "Advanced Business Strategies".', 'Ongoing', 'U004', 'L002'),
-('REQ015', 'Technical Support', 'Having trouble logging into the digital library.', 'Pending', 'U005', 'L001'),
-('REQ016', 'Room Booking', 'Would like to book a study room for final year project work.', 'Resolved', 'U006', 'L003'),
-('REQ017', 'Book Reservation', 'Request to reserve "Information Security" for next semester.', 'Pending', 'U007', 'L002'),
-('REQ018', 'Renewal', 'Requesting extension for "Circuit Design" due to project delay.', 'Ongoing', 'U008', 'L001'),
-('REQ019', 'Resource Inquiry', 'Are there any additional materials on social media marketing?', 'Pending', 'U009', 'L003'),
-('REQ020', 'Renewal', 'Need to extend "Therapeutic Diets" borrowing period for ongoing research.', 'Resolved', 'U010', 'L002');
+('REQ001', 'Book Reservation', 'Request to reserve "Business Dynamics" for upcoming coursework.', 'Pending', 'U001', 'U011'),
+('REQ002', 'Renewal', 'Request to renew "Principles of Game Design" for another month.', 'Ongoing', 'U002', 'U011'),
+('REQ003', 'Book Purchase', 'Suggest purchasing more resources on modern tourism management.', 'Resolved', 'U003', 'U012'),
+('REQ004', 'Renewal', 'Need an extension on "Effective Communication".', 'Pending', 'U004', 'U013'),
+('REQ005', 'Resource Inquiry', 'Is "Aviation Studies" available for borrowing this week?', 'Resolved', 'U005', 'U012'),
+('REQ006', 'Technical Support', 'Need help accessing online journals on robotics fundamentals.', 'Ongoing', 'U006', 'U011'),
+('REQ007', 'Late Return', 'Requesting forgiveness for late return due to personal reasons.', 'Pending', 'U007', 'U013'),
+('REQ008', 'Reservation', 'Reserve the meeting room for study group discussion next Wednesday.', 'Pending', 'U008', 'U012'),
+('REQ009', 'Book Suggestion', 'Can the library consider acquiring books on digital marketing insights?', 'Resolved', 'U009', 'U011'),
+('REQ010', 'Renewal', 'Request to renew "Foundations of Design" for another term.', 'Ongoing', 'U010', 'U013'),
+('REQ011', 'Book Reservation', 'Request to reserve "Psychological Perspectives" for class.', 'Pending', 'U001', 'U012'),
+('REQ012', 'Resource Inquiry', 'Is there a newer edition of "Software Engineering Today" available?', 'Pending', 'U002', 'U011'),
+('REQ013', 'Help Request', 'Need guidance on using the librarys database to find specific research papers.', 'Resolved', 'U003', 'U013'),
+('REQ014', 'Renewal', 'I would like to renew "Advanced Business Strategies".', 'Ongoing', 'U004', 'U012'),
+('REQ015', 'Technical Support', 'Having trouble logging into the digital library.', 'Pending', 'U005', 'U011'),
+('REQ016', 'Room Booking', 'Would like to book a study room for final year project work.', 'Resolved', 'U006', 'U012'),
+('REQ017', 'Book Reservation', 'Request to reserve "Information Security" for next semester.', 'Pending', 'U007', 'U012'),
+('REQ018', 'Renewal', 'Requesting extension for "Circuit Design" due to project delay.', 'Ongoing', 'U008', 'U011'),
+('REQ019', 'Resource Inquiry', 'Are there any additional materials on social media marketing?', 'Pending', 'U009', 'U013'),
+('REQ020', 'Renewal', 'Need to extend "Therapeutic Diets" borrowing period for ongoing research.', 'Resolved', 'U010', 'U012');
 
 
 -- Populate Member_Course

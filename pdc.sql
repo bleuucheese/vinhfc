@@ -56,21 +56,17 @@ CREATE TABLE Lib_User (
     l_name NVARCHAR(100),
     email VARCHAR(100) UNIQUE NOT NULL,
     pwd VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    user_type VARCHAR(50) CHECK (user_type IN ('Admin', 'Librarian', 'Member', 'Staff'))
 );
 
 CREATE TABLE Lib_Member (
     user_id VARCHAR(15) PRIMARY KEY,
-    role VARCHAR(50) CHECK (role IN ('Student', 'Staff')),
     total_book_borrowed INT DEFAULT 0,
     total_fine_paid DECIMAL(10,2) DEFAULT 0.00,
     program_code VARCHAR(15),
     FOREIGN KEY (user_id) REFERENCES Lib_User(user_id),
-    FOREIGN KEY (program_code) REFERENCES Major(major_id),
-    CHECK (
-        (role = 'Student' AND total_book_borrowed <= 10) OR
-        (role = 'Staff' AND total_book_borrowed <= 20)
-    )
+    FOREIGN KEY (program_code) REFERENCES Major(major_id)
 );
 
 CREATE TABLE Lib_Admin (
@@ -191,7 +187,7 @@ CREATE TABLE Member_Room (
     booking_id VARCHAR(15) PRIMARY KEY,
     member_id VARCHAR(15),
     room_id VARCHAR(15),
-    reservation_date DATE,
+    reservation_date DATE DEFAULT CURRENT_DATE,
     start_date TIMESTAMP,
     end_date TIMESTAMP,
     FOREIGN KEY (member_id) REFERENCES Lib_Member(user_id),
@@ -205,7 +201,7 @@ CREATE TABLE Member_HardCopy (
     member VARCHAR(15),
     book VARCHAR(15),
     bcopy VARCHAR(15),
-    issue_date DATE,
+    issue_date DATE DEFAULT CURRENT_DATE,
     due_date DATE,
     return_date DATE,
     checkin_condition VARCHAR(255) CHECK (checkin_condition IN ('New', 'Damaged')),  -- Only allows 'New' or 'Damaged'
