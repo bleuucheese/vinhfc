@@ -57,7 +57,7 @@ CREATE TABLE Lib_User (
     email VARCHAR(100) UNIQUE NOT NULL,
     pwd VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    user_type VARCHAR(50) CHECK (user_type IN ('Admin', 'Librarian', 'Member', 'Staff'))
+    user_type VARCHAR(50) CHECK (user_type IN ('Admin', 'Librarian', 'Student', 'Staff'))
 );
 
 CREATE TABLE Lib_Member (
@@ -76,6 +76,10 @@ CREATE TABLE Lib_Admin (
 
 CREATE TABLE Lib_Librarian (
     user_id VARCHAR(15) PRIMARY KEY,
+    start_working_hour INT,
+    end_working_hour INT,
+    CHECK (start_working_hour BETWEEN 0 AND 23),
+    CHECK (end_working_hour BETWEEN 0 AND 23),
     FOREIGN KEY (user_id) REFERENCES Lib_User(user_id)
 );
 
@@ -132,7 +136,7 @@ CREATE TABLE Author (
 CREATE TABLE Review (
     review_id VARCHAR(15) PRIMARY KEY,
     rating INT CHECK (rating BETWEEN 1 AND 5),
-    comment TEXT,
+    comments TEXT,
     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     reviewer VARCHAR(15),
     book VARCHAR(15),
@@ -187,7 +191,7 @@ CREATE TABLE Member_Room (
     booking_id VARCHAR(15) PRIMARY KEY,
     member_id VARCHAR(15),
     room_id VARCHAR(15),
-    reservation_date DATE DEFAULT CURRENT_DATE,
+    reservation_date DATE DEFAULT (CURRENT_DATE),
     start_date TIMESTAMP,
     end_date TIMESTAMP,
     FOREIGN KEY (member_id) REFERENCES Lib_Member(user_id),
@@ -201,7 +205,7 @@ CREATE TABLE Member_HardCopy (
     member VARCHAR(15),
     book VARCHAR(15),
     bcopy VARCHAR(15),
-    issue_date DATE DEFAULT CURRENT_DATE,
+    issue_date DATE DEFAULT (CURRENT_DATE),
     due_date DATE,
     return_date DATE,
     checkin_condition VARCHAR(255) CHECK (checkin_condition IN ('New', 'Damaged')),  -- Only allows 'New' or 'Damaged'

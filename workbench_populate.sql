@@ -165,7 +165,7 @@ INSERT INTO Location (location_id, campus, floor, shelf_no, line_no) VALUES
 
 
 -- Populate Lib_User
-INSERT INTO Lib_User (user_id, username, f_name, l_name, email, pwd) VALUES
+INSERT INTO Lib_User (user_id, username, f_name, l_name, email, pwd, user_type) VALUES
 ('U001', 'anh.lam', 'Anh', 'Lam', 'ltranh@gmail.com', '123', 'Student'),
 ('U002', 'bao.ho', 'Bao', 'Ho', 'hongpbao@gmail.com', '123', 'Student'),
 ('U003', 'johnathan.crellin', 'Johnathan', 'Crellin', 'johncrel@gmail.com', '123', 'Staff'),
@@ -184,7 +184,7 @@ INSERT INTO Lib_User (user_id, username, f_name, l_name, email, pwd) VALUES
 ('U016', 'vinh.truong', 'Vinh', 'Truong', 'trngxuanvinh@gmail.com', 'HD', 'Admin');
 
 -- Populate Lib_Member
-INSERT INTO Lib_Member (user_id, role, total_book_borrowed, total_fine_paid, program_code) VALUES
+INSERT INTO Lib_Member (user_id, total_book_borrowed, total_fine_paid, program_code) VALUES
 ('U001', 0, 0.00, 'BP343'),
 ('U002', 0, 0.00, 'BP214'),
 ('U003', 0, 25.00, NULL),
@@ -204,10 +204,10 @@ INSERT INTO Lib_Admin (user_id) VALUES
 
 
 -- Populate Lib_Librarian
-INSERT INTO Lib_Librarian (user_id) VALUES
-('U011'),
-('U012'),
-('U013');
+INSERT INTO Lib_Librarian (user_id, start_working_hour, end_working_hour) VALUES
+('U011', 7, 15),
+('U012', 15, 22),
+('U013', 9, 17);
 
 
 -- Populate Item 
@@ -463,7 +463,7 @@ INSERT INTO Fine (fine_id, amount, reason, status, incurred_date, due_date, paid
 ('FINE005', 100.00, 'Lost item', 'Unpaid', DATE '2023-09-01', DATE '2023-09-15', NULL, 'U009', 'B004', 'B004C1');
 
 
--------- Populate Requests (created_at) 
+-------- Populate Requests 
 INSERT INTO Requests (request_id, type, message, status, sender, receiver) VALUES
 ('REQ001', 'Book Reservation', 'Request to reserve "Business Dynamics" for upcoming coursework.', 'Pending', 'U001', 'U011'),
 ('REQ002', 'Renewal', 'Request to renew "Principles of Game Design" for another month.', 'Ongoing', 'U002', 'U011'),

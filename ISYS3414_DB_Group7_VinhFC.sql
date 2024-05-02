@@ -83,6 +83,8 @@ CREATE TABLE Lib_Admin (
 
 CREATE TABLE Lib_Librarian (
     user_id VARCHAR(15) PRIMARY KEY,
+    start_working_hour INT CHECK (start_working_hour BETWEEN 0 AND 23),
+    end_working_hour INT CHECK (end_working_hour BETWEEN 0 AND 23),
     FOREIGN KEY (user_id) REFERENCES Lib_User(user_id)
 );
 
@@ -459,9 +461,9 @@ SELECT * FROM dual;
 
 -- Populate Lib_Librarian table
 INSERT ALL
-INTO Lib_Librarian (user_id) VALUES ('U011')
-INTO Lib_Librarian (user_id) VALUES ('U012')
-INTO Lib_Librarian (user_id) VALUES ('U013')
+INTO Lib_Librarian (user_id, start_working_hour, end_working_hour) VALUES ('U011', 7, 15)
+INTO Lib_Librarian (user_id, start_working_hour, end_working_hour) VALUES ('U012', 15, 22)
+INTO Lib_Librarian (user_id, start_working_hour, end_working_hour) VALUES ('U013', 9, 17)
 SELECT * FROM dual;
 
 -- Populate Item table
