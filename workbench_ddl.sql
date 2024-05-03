@@ -65,13 +65,13 @@ CREATE TABLE Lib_Member (
     total_book_borrowed INT DEFAULT 0,
     total_fine_paid DECIMAL(10,2) DEFAULT 0.00,
     program_code VARCHAR(15),
-    FOREIGN KEY (user_id) REFERENCES Lib_User(user_id),
-    FOREIGN KEY (program_code) REFERENCES Major(major_id)
+    FOREIGN KEY (user_id) REFERENCES Lib_User(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (program_code) REFERENCES Major(major_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Lib_Admin (
     user_id VARCHAR(15) PRIMARY KEY,
-    FOREIGN KEY (user_id) REFERENCES Lib_User(user_id)
+    FOREIGN KEY (user_id) REFERENCES Lib_User(user_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Lib_Librarian (
@@ -80,7 +80,7 @@ CREATE TABLE Lib_Librarian (
     end_working_hour INT,
     CHECK (start_working_hour BETWEEN 0 AND 23),
     CHECK (end_working_hour BETWEEN 0 AND 23),
-    FOREIGN KEY (user_id) REFERENCES Lib_User(user_id)
+    FOREIGN KEY (user_id) REFERENCES Lib_User(user_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Item (
@@ -93,7 +93,7 @@ CREATE TABLE Room (
     room_no VARCHAR(50),
     capacity INT,
     status VARCHAR(50),
-    FOREIGN KEY (room_id) REFERENCES Item(item_id)
+    FOREIGN KEY (room_id) REFERENCES Item(item_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Book (
@@ -103,7 +103,7 @@ CREATE TABLE Book (
     description TEXT,
     ratings FLOAT,
     language VARCHAR(50),
-    FOREIGN KEY (book_id) REFERENCES Item(item_id)
+    FOREIGN KEY (book_id) REFERENCES Item(item_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Ebooks (
@@ -112,7 +112,7 @@ CREATE TABLE Ebooks (
     format VARCHAR(50) CHECK (format IN ('PDF', 'EPub')),
     url VARCHAR(255),
     file_size_mb FLOAT,
-    FOREIGN KEY (book_id) REFERENCES Book(book_id)
+    FOREIGN KEY (book_id) REFERENCES Book(book_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Hard_Copies (
@@ -123,8 +123,8 @@ CREATE TABLE Hard_Copies (
     year_published INT,
     location VARCHAR(15),
     PRIMARY KEY (book_id, copy_id),
-    FOREIGN KEY (book_id) REFERENCES Book(book_id),
-    FOREIGN KEY (location) REFERENCES Location(location_id)
+    FOREIGN KEY (book_id) REFERENCES Book(book_id) ON DELETE CASCADE,
+    FOREIGN KEY (location) REFERENCES Location(location_id) ON DELETE SET NULL
 );
 
 CREATE TABLE Author (
@@ -140,8 +140,8 @@ CREATE TABLE Review (
     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     reviewer VARCHAR(15),
     book VARCHAR(15),
-    FOREIGN KEY (reviewer) REFERENCES Lib_Member(user_id),
-    FOREIGN KEY (book) REFERENCES Book(book_id)
+    FOREIGN KEY (reviewer) REFERENCES Lib_Member(user_id) ON DELETE SET NULL,
+    FOREIGN KEY (book) REFERENCES Book(book_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Fine (
@@ -155,8 +155,8 @@ CREATE TABLE Fine (
     payer VARCHAR(15),
     book_id VARCHAR(15),
     copy_id VARCHAR(15),
-    FOREIGN KEY (payer) REFERENCES Lib_Member(user_id),
-    FOREIGN KEY (book_id, copy_id) REFERENCES Hard_Copies(book_id, copy_id)
+    FOREIGN KEY (payer) REFERENCES Lib_Member(user_id) ON DELETE SET NULL,
+    FOREIGN KEY (book_id, copy_id) REFERENCES Hard_Copies(book_id, copy_id) ON DELETE SET NULL
 );
 
 CREATE TABLE Requests (
@@ -167,24 +167,24 @@ CREATE TABLE Requests (
     status VARCHAR(50) CHECK (status IN ('Pending', 'Ongoing', 'Resolved')),
     sender VARCHAR(15),
     receiver VARCHAR(15),
-    FOREIGN KEY (sender) REFERENCES Lib_Member(user_id),
-    FOREIGN KEY (receiver) REFERENCES Lib_Librarian(user_id)
+    FOREIGN KEY (sender) REFERENCES Lib_Member(user_id) ON DELETE SET NULL,
+    FOREIGN KEY (receiver) REFERENCES Lib_Librarian(user_id) ON DELETE SET NULL
 );
 
 CREATE TABLE Member_Course (
     member_id VARCHAR(15),
     course_code VARCHAR(15),
     PRIMARY KEY (member_id, course_code),
-    FOREIGN KEY (member_id) REFERENCES Lib_Member(user_id),
-    FOREIGN KEY (course_code) REFERENCES Course(course_id)
+    FOREIGN KEY (member_id) REFERENCES Lib_Member(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (course_code) REFERENCES Course(course_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Member_Ebooks (
     member_id VARCHAR(15),
     ebook_id VARCHAR(15),
     PRIMARY KEY (member_id, ebook_id),
-    FOREIGN KEY (member_id) REFERENCES Lib_Member(user_id),
-    FOREIGN KEY (ebook_id) REFERENCES Ebooks(book_id)
+    FOREIGN KEY (member_id) REFERENCES Lib_Member(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (ebook_id) REFERENCES Ebooks(book_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Member_Room (
@@ -194,8 +194,8 @@ CREATE TABLE Member_Room (
     reservation_date DATE DEFAULT (CURRENT_DATE),
     start_date TIMESTAMP,
     end_date TIMESTAMP,
-    FOREIGN KEY (member_id) REFERENCES Lib_Member(user_id),
-    FOREIGN KEY (room_id) REFERENCES Room(room_id),
+    FOREIGN KEY (member_id) REFERENCES Lib_Member(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (room_id) REFERENCES Room(room_id) ON DELETE CASCADE,
     CHECK (TIMESTAMPDIFF(HOUR, start_date, end_date) <= 2)  -- Ensures booking duration does not exceed 2 hours
 );
 
@@ -210,8 +210,8 @@ CREATE TABLE Member_HardCopy (
     return_date DATE,
     checkin_condition VARCHAR(255) CHECK (checkin_condition IN ('New', 'Damaged')),  -- Only allows 'New' or 'Damaged'
     checkout_condition VARCHAR(255) CHECK (checkout_condition IN ('New', 'Damaged')),  -- Only allows 'New' or 'Damaged'
-    FOREIGN KEY (member) REFERENCES Lib_Member(user_id),
-    FOREIGN KEY (book, bcopy) REFERENCES Hard_Copies(book_id, copy_id)
+    FOREIGN KEY (member) REFERENCES Lib_Member(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (book, bcopy) REFERENCES Hard_Copies(book_id, copy_id) ON DELETE CASCADE
 );
 
 
@@ -219,30 +219,30 @@ CREATE TABLE Book_Author (
     book_id VARCHAR(15),
     author_id VARCHAR(15),
     PRIMARY KEY (book_id, author_id),
-    FOREIGN KEY (book_id) REFERENCES Book(book_id),
-    FOREIGN KEY (author_id) REFERENCES Author(author_id)
+    FOREIGN KEY (book_id) REFERENCES Book(book_id) ON DELETE CASCADE,
+    FOREIGN KEY (author_id) REFERENCES Author(author_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Book_Course (
     book_id VARCHAR(15),
     course_id VARCHAR(15),
     PRIMARY KEY (book_id, course_id),
-    FOREIGN KEY (book_id) REFERENCES Book(book_id),
-    FOREIGN KEY (course_id) REFERENCES Course(course_id)
+    FOREIGN KEY (book_id) REFERENCES Book(book_id) ON DELETE CASCADE,
+    FOREIGN KEY (course_id) REFERENCES Course(course_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Book_Category (
     book_id VARCHAR(15),
     category_id VARCHAR(15),
     PRIMARY KEY (book_id, category_id),
-    FOREIGN KEY (book_id) REFERENCES Book(book_id),
-    FOREIGN KEY (category_id) REFERENCES Category(category_id)
+    FOREIGN KEY (book_id) REFERENCES Book(book_id) ON DELETE CASCADE,
+    FOREIGN KEY (category_id) REFERENCES Category(category_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Book_Major (
     book_id VARCHAR(15),
     major_id VARCHAR(15),
     PRIMARY KEY (book_id, major_id),
-    FOREIGN KEY (book_id) REFERENCES Book(book_id),
-    FOREIGN KEY (major_id) REFERENCES Major(major_id)
+    FOREIGN KEY (book_id) REFERENCES Book(book_id) ON DELETE CASCADE,
+    FOREIGN KEY (major_id) REFERENCES Major(major_id) ON DELETE CASCADE
 );
